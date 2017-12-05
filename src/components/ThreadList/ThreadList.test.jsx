@@ -1,6 +1,6 @@
 import React from 'react';
 import ThreadList from './ThreadList';
-import { shallow, mount, configure } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 
 describe("A test", () => {
     let props;
