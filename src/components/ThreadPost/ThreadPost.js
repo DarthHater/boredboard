@@ -1,16 +1,21 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 
 class ThreadPost extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { thread: {} };
+        this.state = { thread: {}, posts: [] };
     }
 
     componentDidMount() {
-        fetch(`http://localhost:8000/thread/${this.props.match.params.id}`)
+        let threadId = this.props.match.params.id;
+        fetch(`http://localhost:8000/thread/${threadId}`)
             .then(result => result.json())
             .then(thread => this.setState({thread}));
+        fetch(`http://localhost:8000/posts/${threadId}`)
+            .then(result => result.json())
+            .then(posts => this.setState({posts}));
     }
 
     render() {
@@ -21,8 +26,22 @@ class ThreadPost extends Component {
                         {this.state.thread.Title }
                     </h1>
                 </header>
-
                 <div>
+                {this.state.posts.map(post => {
+                        return (
+                            <li key={post.Id}>
+                                <p>
+                                    <Link to={`/user/${post.UserId}`}>
+                                        
+                                    </Link>
+                                    on {post.PostedAt}
+                                </p>
+                                <p>
+                                    {post.Body}
+                                </p>
+                            </li>
+                        )
+                    })}
                 </div>
             </div>
         );
