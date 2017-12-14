@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import ThreadReply from '../ThreadReply/ThreadReply';
 
 class ThreadPost extends Component {
 
@@ -15,7 +16,7 @@ class ThreadPost extends Component {
             .then(thread => this.setState({thread}));
         fetch(`http://localhost:8000/posts/${threadId}`)
             .then(result => result.json())
-            .then(posts => this.setState({posts}));
+            .then(posts => this.setState({posts}));    
     }
 
     render() {
@@ -43,6 +44,11 @@ class ThreadPost extends Component {
                         )
                     })}
                 </div>
+                <ThreadReply 
+                    userId={this.state.thread.UserId} 
+                    threadId={this.state.thread.Id} 
+                >
+                </ThreadReply>
             </div>
         );
     }
