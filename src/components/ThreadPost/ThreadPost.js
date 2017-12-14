@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import ThreadReply from '../ThreadReply/ThreadReply';
+import ThreadReply from './ThreadReply/ThreadReply';
 
 class ThreadPost extends Component {
 
     constructor(props) {
         super(props);
         this.state = { thread: {}, posts: [] };
+        this.getPost = this.getPost.bind(this)
     }
 
     componentDidMount() {
@@ -17,6 +18,17 @@ class ThreadPost extends Component {
         fetch(`http://localhost:8000/posts/${threadId}`)
             .then(result => result.json())
             .then(posts => this.setState({posts}));    
+    }
+
+    getPost(postId) {
+        // There has got to be a better way of doing this
+        // Ideally we want all posts to show up as they are posted
+        // Sockets? I dunno
+        fetch(`http://localhost:8000/post/${postId}`)
+            .then(result => result.json())
+            .then(post => this.setState({
+                posts: this.state.posts.concat([post])
+            }));  
     }
 
     render() {
@@ -46,7 +58,8 @@ class ThreadPost extends Component {
                 </div>
                 <ThreadReply 
                     userId={this.state.thread.UserId} 
-                    threadId={this.state.thread.Id} 
+                    threadId={this.state.thread.Id}
+                    callback={this.getPost} 
                 >
                 </ThreadReply>
             </div>
