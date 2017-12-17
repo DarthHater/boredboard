@@ -9,6 +9,8 @@ services:
   backend:
     image: darthhater/bored-board-service:latest
     container_name: backend
+    links:
+      - redis_db
     ports:
       - '8000:8000'
   database:
@@ -18,3 +20,8 @@ services:
       - ~/go/src/github.com/darthhater/bored-board-service/.sql:/docker-entrypoint-initdb.d/
     ports:
       - '5432:5432'
+  redis_db:
+    image: redis:latest
+    container_name: redis_db
+    ports:
+      - '6379:6379'

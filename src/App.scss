@@ -19,3 +19,8 @@ body {
     max-width: 1200px;
     margin: 0 auto;
 }
+
+.post {
+    transition: opacity 0.5s;
+    opacity: 1;
+}

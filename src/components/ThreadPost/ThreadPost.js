@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import WebSocket from 'react-websocket';
 import ThreadReply from './ThreadReply/ThreadReply';
 
 class ThreadPost extends Component {
@@ -18,6 +19,11 @@ class ThreadPost extends Component {
         fetch(`http://localhost:8000/posts/${threadId}`)
             .then(result => result.json())
             .then(posts => this.setState({posts}));    
+    }
+
+    handleSocket(data) {
+        let result = JSON.parse(data);
+        this.setState({posts: this.state.posts.concat([result.Post])});
     }
 
     getPost(postId) {
@@ -42,7 +48,7 @@ class ThreadPost extends Component {
                 <div>
                 {this.state.posts.map(post => {
                         return (
-                            <li key={post.Id}>
+                            <li key={post.Id} className="post">
                                 <p>
                                     <Link to={`/user/${post.UserId}`}>
                                         
@@ -59,9 +65,11 @@ class ThreadPost extends Component {
                 <ThreadReply 
                     userId={this.state.thread.UserId} 
                     threadId={this.state.thread.Id}
-                    callback={this.getPost} 
                 >
                 </ThreadReply>
+
+                <WebSocket url='ws://localhost:8000/ws'
+                    onMessage={this.handleSocket.bind(this)} />
             </div>
         );
     }

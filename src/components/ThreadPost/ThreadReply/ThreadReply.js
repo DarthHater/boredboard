@@ -26,11 +26,7 @@ class ThreadReply extends Component {
                 ThreadId: this.props.threadId,
                 UserId: this.props.userId,
                 Body: this.state.value,
-            })})
-                .then(result => result.json())
-                .then(post => {
-                    this.props.callback(post.id)
-        });
+            })});
 
         this.setState({value: ''});
 
