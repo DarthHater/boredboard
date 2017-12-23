@@ -8,7 +8,6 @@ class ThreadPost extends Component {
     constructor(props) {
         super(props);
         this.state = { thread: {}, posts: [] };
-        this.getPost = this.getPost.bind(this)
     }
 
     componentDidMount() {
@@ -23,18 +22,9 @@ class ThreadPost extends Component {
 
     handleSocket(data) {
         let result = JSON.parse(data);
-        this.setState({posts: this.state.posts.concat([result.Post])});
-    }
-
-    getPost(postId) {
-        // There has got to be a better way of doing this
-        // Ideally we want all posts to show up as they are posted
-        // Sockets? I dunno
-        fetch(`http://localhost:8000/post/${postId}`)
-            .then(result => result.json())
-            .then(post => this.setState({
-                posts: this.state.posts.concat([post])
-            }));  
+        if (result.ThreadId == this.props.match.params.id) {
+            this.setState({posts: this.state.posts.concat([result])});
+        }
     }
 
     render() {
