@@ -1,6 +1,26 @@
+sudo: required
+
 language: node_js
+
+services:
+  - docker
+
 node_js:
  - 8
-before_install:
- - yarn
-script: yarn build
+
+jobs:
+  include:
+    - stage: build
+      script: yarn && yarn build
+    - stage: deploy
+      script: 
+      - curl https://cli-assets.heroku.com/install.sh | sh
+      - docker login -u _ -p "$HEROKU_TOKEN" registry.heroku.com
+      - docker build -t registry.heroku.com/vivalavinyl-webapp/web .
+      - docker push registry.heroku.com/vivalavinyl-webapp/web 
+      - heroku container:release web -a vivalavinyl-webapp
+
+stages:
+  - build
+  - name: deploy
+    if: branch = master

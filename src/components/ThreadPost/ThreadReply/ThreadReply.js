@@ -3,6 +3,7 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import {orange500, blue500} from 'material-ui/styles/colors';
 import ThreadService from '../../../services/ThreadService';
+import config from 'react-global-configuration';
 
 const styles = {
     floatingLabelStyle: {
@@ -29,10 +30,18 @@ class ThreadReply extends Component {
     }
 
     handleSubmit(event) {
-        ThreadService.postPost(this.props.threadId, this.props.userId, this.state.value)
-            .catch(error => {
-                throw(error);
-            });
+        let baseUrl = config.get('API_ROOT');
+        fetch(`${baseUrl}/post`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                ThreadId: this.props.threadId,
+                UserId: this.props.userId,
+                Body: this.state.value,
+            })});
 
         this.setState({value: ''});
 

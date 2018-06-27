@@ -4,6 +4,7 @@ import Timestamp from 'react-timestamp';
 import WebSocket from 'react-websocket';
 import ThreadReply from './ThreadReply/ThreadReply';
 import ThreadService from '../../services/ThreadService';
+import config from 'react-global-configuration';
 
 class ThreadPost extends Component {
 
@@ -13,17 +14,14 @@ class ThreadPost extends Component {
     }
 
     componentDidMount() {
+        let baseUrl = config.get('API_ROOT');
         let threadId = this.props.match.params.id;
-        ThreadService.getThread(threadId)
-            .then(thread => this.setState({thread}))
-            .catch(error => {
-                throw(error);
-            });
-        ThreadService.getPosts(threadId)
-            .then(posts => this.setState({posts}))
-            .catch(error => {
-                throw(error);
-            });   
+        fetch(`${baseUrl}/thread/${threadId}`)
+            .then(result => result.json())
+            .then(thread => this.setState({thread}));
+        fetch(`${baseUrl}/posts/${threadId}`)
+            .then(result => result.json())
+            .then(posts => this.setState({posts}));    
     }
 
     handleSocket(data) {

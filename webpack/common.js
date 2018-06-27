@@ -43,7 +43,6 @@ module.exports = {
         new HtmlWebpackPlugin({
             inject: false,
             template: require('html-webpack-template'),
-            headHtmlSnippet: '<link rel="stylesheet" href="css/main.css"',
             appMountId: 'app',
             mobile: true,
             lang: 'en-US',
