@@ -23,19 +23,18 @@ class App extends Component {
                                     exact={true}
                                     path="/"
                                     render={() =>
-                                        isLoggedIn() ? (
-                                            <ThreadList threads={this.props.threads} />
-                                        ) : (
-                                            <Redirect to="/login" />
-                                        )
+                                        isLoggedIn() ? <ThreadList threads={this.props.threads} /> : <Login />
                                     }
                                 />
 
-                                <Route path="/login" component={Login} />
+                                <Route
+                                    path="/login"
+                                    render={() => (isLoggedIn() ? <Redirect to={'/'} /> : <Login />)}
+                                />
 
                                 <Route
                                     path="/thread/:id"
-                                    render={props => (isLoggedIn() ? <Thread {...props} /> : <Redirect to="/login" />)}
+                                    render={props => (isLoggedIn() ? <Thread {...props} /> : <Login />)}
                                 />
                             </Switch>
                         </main>
