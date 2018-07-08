@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import AppBar from 'material-ui/AppBar';
-import FlatButton from 'material-ui/FlatButton';
+import AppBar from '@material-ui/core/AppBar';
+import Button from '@material-ui/core/Button';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 import {getUsername, isLoggedIn} from '../../auth/authentication';
 import {connect} from 'react-redux';
 import {userActions} from '../../actions/index';
@@ -13,17 +15,18 @@ class NavigationBar extends Component {
 
     render() {
         return (
-            <AppBar
-                title="VLV"
-                showMenuIconButton={false}
-                iconElementRight={
-                    isLoggedIn() ? (
-                        <FlatButton label={'Logout ' + getUsername()} onClick={this.logOut} />
+            <AppBar position="static">
+                <Toolbar>
+                    <Typography variant="title" color="inherit">
+                        VLV
+                    </Typography>
+                    { isLoggedIn() ? (
+                        <Button label={'Logout ' + getUsername()} onClick={this.logOut} />
                     ) : (
-                        <FlatButton label="Login" containerElement={<Link to="/login" />} />
-                    )
-                }
-            />
+                        <Button label="Login" />
+                    )}
+                </Toolbar>
+            </AppBar>
         );
     }
 }
