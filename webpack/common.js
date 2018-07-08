@@ -50,5 +50,10 @@ module.exports = {
             lang: 'en-US',
             title: 'VLV'
         })
-    ]
+    ],
+    optimization: {
+        splitChunks: {
+            chunks: 'all'
+        }
+    }
 };
