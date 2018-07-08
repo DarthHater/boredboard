@@ -1,6 +1,5 @@
-import { userConstants } from '../constants/user-types';
-import { authService } from '../services/AuthService';
-import { history } from '../helpers/history';
+import {userConstants} from '../constants/user-types';
+import {authService} from '../services/AuthService';
 
 export const userActions = {
     login,
@@ -9,12 +8,13 @@ export const userActions = {
 
 function login(data) {
     return function(dispatch) {
-        return authService.login(data)
+        return authService
+            .login(data)
             .then(user => {
                 dispatch(loginSuccess(user));
-                history.push('/');
-            }).catch(error => {
-                throw(error);
+            })
+            .catch(error => {
+                throw error;
             });
     };
 }
@@ -23,12 +23,11 @@ function logout() {
     return function(dispatch) {
         authService.logout();
         dispatch(logoutSuccess());
-        history.push('/login');
-    }
+    };
 }
 
 function logoutSuccess() {
-    return { type: userConstants.LOGOUT };
+    return {type: userConstants.LOGOUT};
 }
 
 function loginSuccess(user) {
