@@ -58,7 +58,7 @@ function addThread(thread) {
     return function(dispatch) {
         return ThreadService.postThread(thread)
         .then(response => {
-            dispatch(addThreadSuccess(thread));
+            dispatch(addThreadSuccess(stubThread(response, thread)));
         }).catch(error => {
             throw(error);
         });
@@ -77,6 +77,16 @@ function stubPost(response, threadId, userId, post) {
         ThreadId: threadId,
         UserId: userId,
         Body: post,
+        PostedAt: new Date(Date.now())
+    };
+}
+
+function stubThread(response, thread) {
+    return {
+        Id: response.id,
+        UserId: thread.Thread.UserId,
+        Title: thread.Thread.Title,
+        UserName: 'Blank',
         PostedAt: new Date(Date.now())
     };
 }
