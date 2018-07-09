@@ -8,6 +8,9 @@ export default function postsReducer(state = initialState.posts, action) {
         case threadConstants.ADD_POST:
             let newAddPost = insertItem(state, action.post);
             return newAddPost;
+        case threadConstants.EDIT_POST:
+            let newEditPost = editItem(state, action.post);
+            return newEditPost;
         case threadConstants.RECIEVE_POST:
             let obj = JSON.parse(action.post);
             let newRecievePost = insertItem(state, obj);
@@ -15,6 +18,14 @@ export default function postsReducer(state = initialState.posts, action) {
         default:
             return state;
     }
+}
+
+function editItem(array, action) {
+    let newArray = array.slice();
+    var foundIndex = newArray.findIndex(x => x.Id == action.Id);
+    newArray[foundIndex].Body = action.Body;
+
+    return newArray;
 }
 
 function insertItem(array, action) {

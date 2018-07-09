@@ -7,6 +7,13 @@ export function isLoggedIn() {
     return true;
 }
 
+export function checkUser(userId) {
+    if (userId == getUserId()) {
+        return true;
+    }
+    return false;
+}
+
 export function getUsername() {
     let decoded = jwt_decode(sessionStorage.getItem('jwt'));
 

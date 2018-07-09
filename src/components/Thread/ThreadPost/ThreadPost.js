@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Timestamp from 'react-timestamp';
 import WebSocket from 'react-websocket';
+import EditableLabel from 'react-inline-editing';
 import { connect } from 'react-redux';
 import { threadActions } from '../../../actions/index';
 import config from 'react-global-configuration';
+import * as auth from '../../../auth/authentication';
 
 class ThreadPost extends Component {
 
@@ -12,8 +14,13 @@ class ThreadPost extends Component {
         super(props);
 
         this.state = {
-            baseUrl: config.get('WS_ROOT')
+            baseUrl: config.get('WS_ROOT'),
+            postId: ''
         }
+
+        this._handleFocusOut = this._handleFocusOut.bind(this);
+        this.handleFocus = this.handleFocus.bind(this);
+
         this.props.dispatch(threadActions.loadPosts(this.props.threadId));
     }
 
@@ -22,6 +29,14 @@ class ThreadPost extends Component {
         if (result.ThreadId == this.props.threadId) {
             this.props.dispatch(threadActions.recievePost(data));
         }
+    }
+
+    handleFocus(postId, e) {
+        this.state.postId = postId;
+    }
+
+    _handleFocusOut(text) {
+        this.props.dispatch(threadActions.editPost(text, this.state.postId));
     }
 
     render() {
@@ -38,7 +53,19 @@ class ThreadPost extends Component {
                                     &nbsp;on <Timestamp time={post.PostedAt} format="full" />
                                 </p>
                                 <p>
-                                    {post.Body}
+                                { auth.checkUser(post.UserId) ? (
+                                    <EditableLabel text={post.Body}
+                                    labelClassName='editPostLabel'
+                                    inputClassName='editPostInput'
+                                    inputWidth='200px'
+                                    inputHeight='25px'
+                                    inputFontWeight='bold'
+                                    onFocus={(evt) => this.handleFocus(post.Id, evt)}
+                                    onFocusOut={this._handleFocusOut}
+                                    />
+                                ) : (
+                                    post.Body
+                                )}
                                 </p>
                             </li>
                         )

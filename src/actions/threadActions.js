@@ -6,7 +6,8 @@ export const threadActions = {
     loadThread,
     loadPosts,
     addPost,
-    recievePost
+    recievePost,
+    editPost
 };
 
 function loadThreads() {
@@ -53,6 +54,17 @@ function addPost(threadId, userId, post) {
     }
 }
 
+function editPost(text, postId) {
+    return function(dispatch) {
+        return ThreadService.editPost(text, postId)
+        .then(response => {
+            dispatch(editPostSuccess());
+        }).catch(error => {
+            throw(error);
+        });
+    }
+}
+
 function recievePost(post) {
     return function(dispatch) {
         dispatch(recievePostSuccess(post));
@@ -83,6 +95,10 @@ function loadPostsSuccess(posts) {
 
 function addPostSuccess(post) {
     return { type: threadConstants.ADD_POST, post };
+}
+
+function editPostSuccess() {
+    return { type: threadConstants.EDIT_POST };
 }
 
 function recievePostSuccess(post) {
