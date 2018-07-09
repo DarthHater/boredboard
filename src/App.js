@@ -8,6 +8,7 @@ import ThreadList from './components/ThreadList/ThreadList';
 import Thread from './components/Thread/Thread';
 import NavigationBar from './components/NavigationBar/NavigationBar';
 import Login from './components/Login/Login';
+import Register from './components/Register/Register';
 import {isLoggedIn} from './auth/authentication';
 
 const theme = createMuiTheme();
@@ -32,6 +33,11 @@ class App extends Component {
                                 <Route
                                     path="/login"
                                     render={() => (isLoggedIn() ? <Redirect to={'/'} /> : <Login />)}
+                                />
+
+                                <Route
+                                    path="/register"
+                                    render={() => (isLoggedIn() ? <Redirect to={'/'} /> : <Register />)}
                                 />
 
                                 <Route
