@@ -33,6 +33,19 @@ class ThreadService {
             });
     }
 
+    postThread(data) {
+        let baseUrl = config.get('API_ROOT');
+        const headers = this.requestHeaders();
+
+        return axios.post(`${baseUrl}/thread`, JSON.stringify(data), {
+                headers: headers
+            }).then(response => {
+                return response.data;
+            }).catch(error => {
+                return error;
+            });
+    }
+
     getPosts(threadId) {
         let baseUrl = config.get('API_ROOT');
         const headers = this.requestHeaders();

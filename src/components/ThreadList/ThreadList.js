@@ -2,16 +2,22 @@ import React, { Component } from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import ThreadAdd from './ThreadAdd/ThreadAdd';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Timestamp from 'react-timestamp';
 import { connect } from 'react-redux';
 import { threadActions } from '../../actions'; 
+import * as auth from '../../auth/authentication';
 
 class ThreadList extends Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            userId: auth.getUserId()
+        }
     }
 
     componentDidMount() {
@@ -39,6 +45,9 @@ class ThreadList extends Component {
                             </Card>
                         )
                     })}
+                    <ThreadAdd
+                        userId={this.state.userId} >
+                    </ThreadAdd>
             </div>
         );
     }
