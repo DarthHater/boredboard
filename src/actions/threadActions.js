@@ -87,8 +87,8 @@ function stubThread(response, thread) {
         Id: response.id,
         UserId: thread.Thread.UserId,
         Title: thread.Thread.Title,
-        UserName: 'Blank',
-        PostedAt: new Date(Date.now())
+        PostedAt: new Date(Date.now()),
+        UserName: response.username
     };
 }
 
