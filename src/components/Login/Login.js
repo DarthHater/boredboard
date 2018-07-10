@@ -78,7 +78,7 @@ class Login extends Component {
                         onChange={this.handlePasswordChange}
                     />
                     <br />
-                    <Button type="submit">Login</Button>
+                    <Button variant="contained" color="primary" type="submit">Login</Button>
                 </form>
                 <h4>Don't have an account?</h4>
                 <p>

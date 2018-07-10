@@ -52,7 +52,8 @@ class ThreadReply extends Component {
                     onChange={this.handleChange} 
                 />
                 <Button 
-                    primary={true} 
+                    variant="contained" 
+                    color="primary"
                     type="submit" 
                 >say it!</Button>
             </form>

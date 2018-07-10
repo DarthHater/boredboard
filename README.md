@@ -12,6 +12,8 @@ It's written in Typescript and shouts to the supporting team:
 
 * Yarn
 * React
+* Redux
+* Webpack
 * Docker
 * Sass
 
@@ -21,6 +23,8 @@ First download all the dependencies by running:
 
 ```bash
 $ yarn
+$ yarn global add webpack@^4.15.1
+$ yarn global add webpack-cli
 ```
 
 then to develop locally run:
@@ -29,22 +33,13 @@ then to develop locally run:
 $ yarn start
 ```
 
-If everything is hunky dorky, you now have an environment at http://localhost:8080 ready for work with hot-reloading enabled.
+If everything is hunky dorky, you now have an environment at http://localhost:8090 ready for work with hot-reloading enabled.
 
 For a production build all you have to run is
 
 ```bash
 $ yarn build
 ```
-
-## Docker Docker Docker (Moby wasn't in Flipper)
-
-* Ensure you have Docker installed
-* `docker-compose up` from root
-
-Everything should come up, you should have an environment at http://localhost:8080
-
-NOTE: this environment contains the backend, as well as a Postgres DB. As such, ensure the volumes command in docker-compose.yml for the sql init scripts is pointing to a valid location (you will likely want to setup the bored-board-service app in a valid golang path).
 
 ## Can I contribute?
 

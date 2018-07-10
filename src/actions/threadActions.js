@@ -77,7 +77,8 @@ function stubPost(response, threadId, userId, post) {
         ThreadId: threadId,
         UserId: userId,
         Body: post,
-        PostedAt: new Date(Date.now())
+        PostedAt: new Date(Date.now()),
+        UserName: response.username
     };
 }
 

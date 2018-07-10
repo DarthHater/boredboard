@@ -44,9 +44,9 @@ class NavigationBar extends Component {
                             VLV
                         </Typography>
                         { isLoggedIn() ? (
-                            <Button onClick={this.logOut} color="inherit">Logout {getUsername()}</Button>
+                            <Button onClick={this.logOut} variant="outlined" color="inherit">Logout {getUsername()}</Button>
                                 ) : (
-                            <Button color="inherit">Login</Button>
+                            <Button variant="outlined" color="inherit">Login</Button>
                         )}
                     </Toolbar>
                 </AppBar>
