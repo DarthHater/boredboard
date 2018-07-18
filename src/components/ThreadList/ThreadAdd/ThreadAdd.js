@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { threadActions } from '../../../actions'; 
 import * as auth from '../../../auth/authentication';
+import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 
 class ThreadAdd extends Component {
 
@@ -56,29 +57,37 @@ class ThreadAdd extends Component {
         return (
             <div className='container'>
                 <h3>Submit a new thread</h3>
-                <form onSubmit={this.handleSubmit}>
-                    <TextField
-                        id="title"
-                        label="Thread title"
-                        value={this.state.title}
+                <ValidatorForm
+                    ref="form"
+                    onSubmit={this.handleSubmit}
+                    onError={errors => console.log(errors)}
+                >
+                    <TextValidator
+                        label="Title"
                         onChange={this.handleThreadChange}
+                        name="title"
+                        value={this.state.title}
+                        validators={['required']}
+                        errorMessages={['this field is required']}
                     />
                     <p></p>
-                    <TextField 
-                        id="multiline-static"
+                    <TextValidator
                         label="Say something"
+                        onChange={this.handlePostChange}
+                        name="multiline-static"
+                        value={this.state.body}
                         multiline
                         rows="5"
                         margin="normal"
-                        value={this.state.body} 
-                        onChange={this.handlePostChange} 
+                        validators={['required']}
+                        errorMessages={['this field is required']}
                     />
                     <p></p>
                     <Button 
                         type="submit" >
                         say it!
                     </Button>
-            </form>
+                </ValidatorForm>
             </div>
         );
     }
