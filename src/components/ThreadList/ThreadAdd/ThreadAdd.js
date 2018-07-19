@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { threadActions } from '../../../actions'; 
 import * as auth from '../../../auth/authentication';
-import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
 class ThreadAdd extends Component {
 

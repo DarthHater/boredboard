@@ -5,6 +5,7 @@ import orange from '@material-ui/core/colors/orange';
 import blue from '@material-ui/core/colors/blue';
 import { connect } from 'react-redux';
 import { threadActions } from '../../../actions/index';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
 const styles = {
     floatingLabelStyle: {
@@ -40,23 +41,29 @@ class ThreadReply extends Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <TextField 
-                    id="multiline-static"
+            <ValidatorForm
+                ref="form"
+                onSubmit={this.handleSubmit}
+                onError={errors => console.log(errors)}
+            >
+                <TextValidator
                     label="Type something"
+                    onChange={this.handleChange}
+                    name="multiline-static"
                     multiline
                     rows="5"
                     defaultValue=""
                     margin="normal"
-                    value={this.state.value} 
-                    onChange={this.handleChange} 
+                    value={this.state.value}
+                    validators={['required']}
+                    errorMessages={['this field is required']}
                 />
                 <Button 
                     variant="contained" 
                     color="primary"
                     type="submit" 
                 >say it!</Button>
-            </form>
+            </ValidatorForm>
         );
     }
 }
