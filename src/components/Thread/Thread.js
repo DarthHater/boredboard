@@ -36,7 +36,6 @@ class Thread extends Component {
     render() {
         return (
             <div 
-                onScroll={this.handleScroll}
                 ref="scroller"
                 >
                 <header>
