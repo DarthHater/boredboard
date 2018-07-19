@@ -24,9 +24,20 @@ class ThreadList extends Component {
         this.props.dispatch(threadActions.loadThreads());
     }
 
+    handleScroll = () => {
+        if (this.scroller && this.scroller.scrollTop < 100) {
+            console.log('Reached Top');
+        }
+    }
+
     render() {
         return (
-            <div className='container'>
+            <div 
+                className='container'
+                onScroll={this.handleScroll}
+                ref={(scroller) => {
+                    this.scroller = scroller;
+                }}>
                     {this.props.threads.map(thread => {
                         return (
                             <Card key={thread.Id}>

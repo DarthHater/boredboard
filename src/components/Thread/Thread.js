@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import Timestamp from 'react-timestamp';
 import WebSocket from 'react-websocket';
@@ -23,9 +24,21 @@ class Thread extends Component {
         this.props.dispatch(threadActions.loadThread(id));
     }
 
+    componentDidMount = () => {
+        const containerNode = ReactDOM.findDOMNode(this.refs.scroller);
+        containerNode.addEventListener('scroll', this.handleScroll);
+    }
+
+    handleScroll = () => {
+        console.log('Reached Top');
+    }
+
     render() {
         return (
-            <div className='container'>
+            <div 
+                onScroll={this.handleScroll}
+                ref="scroller"
+                >
                 <header>
                     <h3 className="backToIt">
                         <Link to={`/`}>Back to it</Link>
