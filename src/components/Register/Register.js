@@ -23,7 +23,7 @@ class Register extends Component {
             submitted: false,
             username: '',
             emailaddress: '', 
-            password: ''
+            userpassword: ''
         };
 
         this.handleUserNameChange = this.handleUserNameChange.bind(this);
@@ -39,7 +39,7 @@ class Register extends Component {
         let body = JSON.stringify({
             username: this.state.username,
             emailaddress: this.state.emailaddress,
-            password: this.state.password
+            userpassword: this.state.userpassword
         });
 
         const {dispatch} = this.props;
@@ -88,7 +88,7 @@ class Register extends Component {
                         id="password"
                         label="Password"
                         className={classes.textField}
-                        value={this.state.password}
+                        value={this.state.userpassword}
                         margin="normal"
                         onChange={this.handlePasswordChange}
                     />
