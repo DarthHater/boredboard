@@ -1,15 +1,15 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {HashRouter as Router, Route, Redirect, Switch} from 'react-router-dom';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { HashRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
-
 import ThreadList from './components/ThreadList/ThreadList';
 import Thread from './components/Thread/Thread';
 import NavigationBar from './components/NavigationBar/NavigationBar';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
-import {isLoggedIn} from './auth/authentication';
+import UserProfile from './components/UserProfile/UserProfile'
+import { isLoggedIn } from './auth/authentication';
 
 const theme = createMuiTheme();
 
@@ -44,6 +44,12 @@ class App extends Component {
                                     path="/thread/:id"
                                     render={props => (isLoggedIn() ? <Thread {...props} /> : <Login />)}
                                 />
+
+                                <Route
+                                    exact
+                                    path="/user/:userid"
+                                    render={props => (isLoggedIn() ? <UserProfile {...props} /> : <Login />)}
+                                />
                             </Switch>
                         </main>
                     </div>
@@ -53,7 +59,7 @@ class App extends Component {
     }
 }
 
-const mapStateToProps = function(state) {
+const mapStateToProps = function (state) {
     return {
         threads: state.threads
     };

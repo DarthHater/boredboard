@@ -5,8 +5,13 @@ import axios from 'axios';
 export const authService = {
     login,
     logout,
+    getUserInfo,
     register
 };
+
+function requestHeaders() {
+    return { 'AUTHORIZATION': `Bearer ${sessionStorage.jwt}` }
+}
 
 function login(data) {
     let baseUrl = config.get('API_ROOT');
@@ -15,7 +20,7 @@ function login(data) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-        }  
+        }
         })
         .then(function(response) {
             if (!response.ok) {
@@ -37,12 +42,12 @@ function login(data) {
 
 function register(data) {
     let baseUrl = config.get('API_ROOT');
-    
+
     return axios.post(`${baseUrl}/register`, data, {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-        }  
+        }
         })
         .then(function(response) {
             if (!response.ok) {
