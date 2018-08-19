@@ -28,6 +28,10 @@ export function getUserRole() {
     return decoded.role;
 }
 
+export function getRequestHeaders() {
+    return { 'AUTHORIZATION': `Bearer ${sessionStorage.jwt}` }
+}
+
 export function logOut() {
     sessionStorage.removeItem('jwt');
 }

@@ -1,15 +1,12 @@
 import config from 'react-global-configuration';
 import axios from 'axios';
+import { getRequestHeaders } from '../auth/authentication';
 
 class UserService {
 
-    requestHeaders() {
-        return { 'AUTHORIZATION': `Bearer ${sessionStorage.jwt}` }
-    }
-
     getUserInfo(userId) {
         let baseUrl = config.get('API_ROOT');
-        const headers = this.requestHeaders();
+        const headers = getRequestHeaders();
 
         return axios.get(`${baseUrl}/user/${userId}`, {
             headers: headers

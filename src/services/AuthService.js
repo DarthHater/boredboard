@@ -8,10 +8,6 @@ export const authService = {
     register
 };
 
-function requestHeaders() {
-    return { 'AUTHORIZATION': `Bearer ${sessionStorage.jwt}` }
-}
-
 function login(data) {
     let baseUrl = config.get('API_ROOT');
 

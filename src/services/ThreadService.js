@@ -1,15 +1,12 @@
 import config from 'react-global-configuration';
 import axios from 'axios';
+import { getRequestHeaders } from '../auth/authentication';
 
 class ThreadService {
 
-    requestHeaders() {
-        return { 'AUTHORIZATION': `Bearer ${sessionStorage.jwt}` }
-    }
-
     getAllThreads() {
         let baseUrl = config.get('API_ROOT');
-        const headers = this.requestHeaders();
+        const headers = getRequestHeaders();
 
         return axios.get(`${baseUrl}/threads`, {
             headers: headers
@@ -22,7 +19,7 @@ class ThreadService {
 
     getThread(threadId) {
         let baseUrl = config.get('API_ROOT');
-        const headers = this.requestHeaders();
+        const headers = getRequestHeaders();
 
         return axios.get(`${baseUrl}/thread/${threadId}`, {
             headers: headers
@@ -35,7 +32,7 @@ class ThreadService {
 
     postThread(data) {
         let baseUrl = config.get('API_ROOT');
-        const headers = this.requestHeaders();
+        const headers = getRequestHeaders();
 
         return axios.post(`${baseUrl}/thread`, JSON.stringify(data), {
             headers: headers
@@ -48,7 +45,7 @@ class ThreadService {
 
     getPosts(threadId) {
         let baseUrl = config.get('API_ROOT');
-        const headers = this.requestHeaders();
+        const headers = getRequestHeaders();
 
         return axios.get(`${baseUrl}/posts/${threadId}`, {
             headers: headers
@@ -61,7 +58,7 @@ class ThreadService {
 
     postPost(threadId, userId, body) {
         let baseUrl = config.get('API_ROOT');
-        const headers = this.requestHeaders();
+        const headers = getRequestHeaders();
 
         return axios.post(`${baseUrl}/post`, JSON.stringify({
             ThreadId: threadId,
@@ -78,7 +75,7 @@ class ThreadService {
 
     deleteThread(threadId) {
         let baseUrl = config.get('API_ROOT');
-        const headers = this.requestHeaders();
+        const headers = getRequestHeaders();
 
         return axios.delete(`${baseUrl}/thread/${threadId}`, {
             headers: headers
