@@ -64,7 +64,7 @@ class NavigationBar extends Component {
                                 <Button onClick={this.logOut} variant="outlined" color="inherit">Logout {getUsername()}</Button>
                             </Fragment>
                             ) :
-                            <Button variant="outlined" color="inherit">Login</Button>
+                            (<Button variant="outlined" color="inherit">Login</Button>)
                         }
                     </Toolbar>
                 </AppBar>
