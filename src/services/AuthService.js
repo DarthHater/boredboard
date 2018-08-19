@@ -5,7 +5,6 @@ import axios from 'axios';
 export const authService = {
     login,
     logout,
-    getUserInfo,
     register
 };
 

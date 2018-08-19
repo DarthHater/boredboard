@@ -7,11 +7,11 @@ class UserService {
         return { 'AUTHORIZATION': `Bearer ${sessionStorage.jwt}` }
     }
 
-    getUserInfo(threadId) {
+    getUserInfo(userId) {
         let baseUrl = config.get('API_ROOT');
         const headers = this.requestHeaders();
 
-        return axios.get(`${baseUrl}/user/${threadId}`, {
+        return axios.get(`${baseUrl}/user/${userId}`, {
             headers: headers
         }).then(response => {
             return response.data;
