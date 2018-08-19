@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { getUsername } from '../../auth/authentication';
 import UserService from '../../services/UserService';
+import { Link } from 'react-router-dom';
 
 class UserProfile extends Component {
 
@@ -18,7 +19,7 @@ class UserProfile extends Component {
         UserService.getUserInfo(userId).then(res => {
             this.setState({
                 loading: false,
-                 userInfo: res
+                userInfo: res
             });
         });
     }
@@ -30,28 +31,29 @@ class UserProfile extends Component {
 
         const { userInfo } = this.state;
 
+        const name = getUsername();
+
         return (
             <div className='container'>
                 <header>
                     <h1>
-                        {getUsername()}
+                        {name}
                     </h1>
                 </header>
-
                 <div>
                     {this.props.bio}
                 </div>
-
                 <div>
                     Total Threads: {userInfo.totalThreads}
                 </div>
-
                 <div>
                     Total Posts: {userInfo.totalPosts}
                 </div>
-
                  <div>
                     Last Posted: {new Date(userInfo.lastPosted).toLocaleString()}
+                </div>
+                <div>
+                    <Link to={`/`}>Message {name}</Link>
                 </div>
             </div>
         );
