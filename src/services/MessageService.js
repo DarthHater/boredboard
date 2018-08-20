@@ -2,7 +2,7 @@ import config from 'react-global-configuration';
 import axios from 'axios';
 import { getRequestHeaders } from '../auth/authentication';
 
-class ThreadService {
+class MessageService {
 
     getAllMessages(userId) {
         let baseUrl = config.get('API_ROOT');
@@ -74,4 +74,4 @@ class ThreadService {
     }
 }
 
-export default new ThreadService();
+export default new MessageService();
