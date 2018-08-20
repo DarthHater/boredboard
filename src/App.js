@@ -4,7 +4,9 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-d
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import ThreadList from './components/ThreadList/ThreadList';
+import MessageList from './components/MessageList/MessageList';
 import Thread from './components/Thread/Thread';
+import Message from './components/Message/Message';
 import NavigationBar from './components/NavigationBar/NavigationBar';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
@@ -29,6 +31,16 @@ class App extends Component {
                                     render={() =>
                                         isLoggedIn() ? <ThreadList threads={this.props.threads} /> : <Login />
                                     }
+                                />
+                                <Route
+                                    path="/messages"
+                                    render={() =>
+                                        isLoggedIn() ? <MessageList messages={this.props.messages} /> : <Login />
+                                    }
+                                />
+                                <Route
+                                    path="/message/:id"
+                                    render={props => (isLoggedIn() ? <Message {...props} /> : <Login />)}
                                 />
                                 <Route
                                     path="/login"
@@ -58,6 +70,7 @@ class App extends Component {
 
 const mapStateToProps = function (state) {
     return {
+        messages: state.messages,
         threads: state.threads,
         user: state.user
     };
