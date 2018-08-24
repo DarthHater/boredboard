@@ -55,7 +55,7 @@ class NavigationBar extends Component {
                                 <Button onClick={this.navToRoute("/")} className={classes.navButton} color="inherit">
                                     Threads
                                 </Button>
-                                <Button onClick={this.navToRoute("/")} className={classes.navButton} color="inherit">
+                                <Button onClick={this.navToRoute("/messages")} className={classes.navButton} color="inherit">
                                     Message
                                 </Button>
                                 <Button onClick={this.navToRoute(`/user/${getUserId()}`)} className={classes.navButton} color="inherit">

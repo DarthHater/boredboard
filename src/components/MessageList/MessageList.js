@@ -24,10 +24,15 @@ class MessageList extends Component {
     }
 
     componentDidMount() {
-        this.props.dispatch(messageActions.loadMessages());
+        this.props.dispatch(messageActions.loadMessages(this.state.userId));
     }
 
     render() {
+        if (!this.props.messages) {
+            return (
+                <div>No Messages</div>
+            )
+        }
         return (
             <div className='container'>
                 {this.props.messages.map(message => {
@@ -58,9 +63,9 @@ class MessageList extends Component {
                         </Card>
                     )
                 })}
-                <MessageAdd
+                {/* <MessageAdd
                     userId={this.state.userId} >
-                </MessageAdd>
+                </MessageAdd> */}
             </div>
         );
     }

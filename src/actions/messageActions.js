@@ -1,7 +1,7 @@
 import MessageService from '../services/MessageService';
 import { messageConstants } from '../constants/message-types';
 
-export const nessageActions = {
+export const messageActions = {
     addMessagePost,
     addMessage,
     loadMessagePosts,
@@ -10,10 +10,9 @@ export const nessageActions = {
     recieveMessagePost
 };
 
-function loadMessages() {
+function loadMessages(userId) {
     return function (dispatch) {
-        // TODO: Fill in userId
-        return MessageService.getAllMessages()
+        return MessageService.getAllMessages(userId)
             .then(messages => {
                 dispatch(loadMessagesSuccess(messages));
             }).catch(error => {
