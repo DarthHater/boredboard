@@ -5,7 +5,7 @@ import posts from './postsReducer';
 import user from './userReducer';
 import message from './messageReducer';
 import messages from './messagesReducer';
-import messagePosts from './messagePostsReducer';
+import message_posts from './messagePostsReducer';
 
 const rootReducer = combineReducers({
     threads,
@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
     posts,
     message,
     messages,
-    messagePosts,
+    message_posts,
     user
 })
 

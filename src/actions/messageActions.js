@@ -35,8 +35,8 @@ function loadMessage(messageId) {
 function loadMessagePosts(messageId) {
     return function (dispatch) {
         return MessageService.getMessagePosts(messageId)
-            .then(posts => {
-                dispatch(loadMessagePostsSuccess(posts));
+            .then(message_posts => {
+                dispatch(loadMessagePostsSuccess(message_posts));
             }).catch(error => {
                 throw (error);
             });
@@ -100,18 +100,18 @@ function loadMessageSuccess(message) {
     return { type: messageConstants.LOAD_MESSAGE_SUCCESS, message };
 }
 
-function loadMessagePostsSuccess(posts) {
-    return { type: messageConstants.LOAD_MESSAGE_POSTS_SUCCESS, posts };
+function loadMessagePostsSuccess(message_posts) {
+    return { type: messageConstants.LOAD_MESSAGE_POSTS_SUCCESS, message_posts };
 }
 
-function addMessagePostSuccess(post) {
-    return { type: messageConstants.ADD_MESSAGE_POST, post };
+function addMessagePostSuccess(message_post) {
+    return { type: messageConstants.ADD_MESSAGE_POST, message_post };
 }
 
 function addMessageSuccess(message) {
     return { type: messageConstants.ADD_MESSAGE, message };
 }
 
-function recieveMessagePostSuccess(post) {
-    return { type: messageConstants.RECIEVE_MESSAGE_POST, post };
+function recieveMessagePostSuccess(message_post) {
+    return { type: messageConstants.RECIEVE_MESSAGE_POST, message_post };
 }
