@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { messageActions } from '../../../actions';
 import * as auth from '../../../auth/authentication';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import MultiSelect from '../../Common/MultiSelect';
 
 class MessageAdd extends Component {
 
@@ -20,32 +21,39 @@ class MessageAdd extends Component {
         };
 
         this.handlePostChange = this.handlePostChange.bind(this);
-        // this.handleThreadChange = this.handleThreadChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleMessageChange(event) {
+    handleMessageChange = (event) => {
         this.setState({title: event.target.value});
     }
 
-    handlePostChange(event) {
+    handlePostChange = (event) => {
         this.setState({body: event.target.value});
     }
 
     handleSubmit(event) {
         let date = new Date(Date.now());
         let data = {
-            Thread: {
+            Message: {
                 UserId: this.props.userId,
                 Title: this.state.title,
                 PostedAt: date
             },
-            Post: {
+            MessagePost: {
                 UserId: this.props.userId,
                 Body: this.state.body,
                 PostedAt: date
-            }
+            },
+            MessageMember: this.props.message_users.map(user => {
+                return {
+                    UserId: user.ID
+                }
+            })
         }
+        data.MessageMember.push({
+            UserId: this.props.userId
+        })
         this.props.dispatch(messageActions.addMessage(data));
 
         this.setState({title: '', body: ''});
@@ -57,6 +65,7 @@ class MessageAdd extends Component {
         return (
             <div className='container'>
                 <h3>Submit a new message</h3>
+                <MultiSelect />
                 <ValidatorForm
                     ref="form"
                     onSubmit={this.handleSubmit}
@@ -97,7 +106,8 @@ function mapStateToProps(state, ownProps) {
     return {
         messages: state.messages,
         message: state.message,
-        message_posts: state.message_posts
+        message_posts: state.message_posts,
+        message_users: state.message_users
     };
 }
 

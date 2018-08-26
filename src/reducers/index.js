@@ -6,6 +6,7 @@ import user from './userReducer';
 import message from './messageReducer';
 import messages from './messagesReducer';
 import message_posts from './messagePostsReducer';
+import message_users from './messageUsersReducer';
 
 const rootReducer = combineReducers({
     threads,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
     message,
     messages,
     message_posts,
-    user
+    user,
+    message_users
 })
 
 export default rootReducer;

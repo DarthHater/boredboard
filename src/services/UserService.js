@@ -16,6 +16,19 @@ class UserService {
             return error;
         });
     }
+
+    getUsers(searchTerm) {
+        let baseUrl = config.get('API_ROOT');
+        const headers = getRequestHeaders();
+
+        return axios.get(`${baseUrl}/users?search=${searchTerm}`, {
+            headers: headers
+        }).then(response => {
+            return response.data;
+        }).catch(error => {
+            return error;
+        });
+    }
 }
 
 export default new UserService();

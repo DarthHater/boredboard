@@ -4,9 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     mode: 'development',
-    entry: {
-        app: './src/index.js'
-    },
+    entry: ['babel-polyfill', './src/index.js'],
     output: {
         filename: '[name].[contenthash].bundle.js',
         path: path.resolve('./dist')
@@ -20,7 +18,8 @@ module.exports = {
                     loader: 'babel-loader',
                     options: {
                         presets: ['env', 'react'],
-                        plugins: ['transform-class-properties']
+                        plugins: ['transform-class-properties', 'transform-object-rest-spread',
+                            'babel-plugin-transform-async-to-generator']
                     }
                 }
             },

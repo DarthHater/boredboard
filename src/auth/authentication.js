@@ -29,7 +29,10 @@ export function getUserRole() {
 }
 
 export function getRequestHeaders() {
-    return { 'AUTHORIZATION': `Bearer ${sessionStorage.jwt}` }
+    return {
+        'AUTHORIZATION': `Bearer ${sessionStorage.jwt}`,
+        'Content-Type': 'application/json'
+    }
 }
 
 export function logOut() {

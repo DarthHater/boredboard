@@ -1,10 +1,12 @@
 import {userConstants} from '../constants/user-types';
 import {authService} from '../services/AuthService';
+import { push } from 'connected-react-router'
 
 export const userActions = {
     login,
     logout,
-    register
+    register,
+    updateMessageUsers
 };
 
 function login(data) {
@@ -26,6 +28,7 @@ function register(data) {
             .register(data)
             .then(user => {
                 dispatch(registerSuccess(user));
+                dispatch(push("/"))
             })
             .catch(error => {
                 throw error;
@@ -50,4 +53,10 @@ function loginSuccess(user) {
 
 function registerSuccess(user) {
     return {type: userConstants.REGISTER_SUCCESS, user};
+}
+
+function updateMessageUsers(users) {
+    return dispatch => {
+        return dispatch({type: userConstants.UPDATE_MESSAGE_USERS, users});
+    }
 }

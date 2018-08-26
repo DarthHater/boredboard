@@ -5,5 +5,6 @@ export default {
     message: {},
     message_posts: [],
     posts: [],
-    user: {}
+    user: {},
+    message_users: []
 }

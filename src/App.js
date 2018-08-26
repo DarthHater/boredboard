@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
+import { Route, Redirect, Switch } from 'react-router-dom';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import ThreadList from './components/ThreadList/ThreadList';
@@ -12,7 +12,7 @@ import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import UserProfile from './components/UserProfile/UserProfile'
 import { isLoggedIn } from './auth/authentication';
-import history from './helpers/history';
+import { ConnectedRouter } from 'connected-react-router'
 
 const theme = createMuiTheme();
 
@@ -20,7 +20,7 @@ class App extends Component {
     render() {
         return (
             <MuiThemeProvider theme={theme}>
-                <Router history={history}>
+                <ConnectedRouter history={this.props.history}>
                     <div>
                         <NavigationBar />
                         <main>
@@ -62,7 +62,7 @@ class App extends Component {
                             </Switch>
                         </main>
                     </div>
-                </Router>
+                </ConnectedRouter>
             </MuiThemeProvider>
         );
     }

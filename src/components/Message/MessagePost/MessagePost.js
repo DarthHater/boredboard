@@ -115,7 +115,7 @@ class MessagePost extends Component {
     }
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
     return {
         message_posts: state.message_posts
     };

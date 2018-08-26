@@ -85,8 +85,8 @@ function stubMessagePost(response, messageId, userId, post) {
 function stubMessage(response, message) {
     return {
         Id: response.id,
-        UserId: message.Thread.UserId,
-        Title: message.Thread.Title,
+        UserId: message.Message.UserId,
+        Title: message.Message.Title,
         PostedAt: new Date(Date.now()),
         UserName: response.username
     };

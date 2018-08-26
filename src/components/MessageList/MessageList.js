@@ -28,41 +28,42 @@ class MessageList extends Component {
     }
 
     render() {
+        let inner;
         if (!this.props.messages) {
-            return (
-                <div>No Messages</div>
-            )
+            inner = <div>No Messages</div>;
+        } else {
+            inner = (this.props.messages.map(message => {
+                return (
+                    <Card key={message.Id}>
+                        <CardContent>
+                            <Grid
+                                container
+                                spacing={16}
+                                alignItems={'center'}
+                                direction={'row'}
+                                justify={'space-between'}
+                            >
+                                <Grid item>
+                                    <Typography variant="headline" component="h3">
+                                        <Link to={{ pathname: `/message/${message.Id}` }}>
+                                            {message.Title}
+                                        </Link>
+                                    </Typography>
+                                    <Typography component="p">
+                                        by: <Link to={`/user/${message.UserId}`}>
+                                            {message.UserName}
+                                        </Link> on <Timestamp time={message.PostedAt} format="full" />
+                                    </Typography>
+                                </Grid>
+                            </Grid>
+                        </CardContent>
+                    </Card>
+                )
+            }))
         }
         return (
             <div className='container'>
-                {this.props.messages.map(message => {
-                    return (
-                        <Card key={message.Id}>
-                            <CardContent>
-                                <Grid
-                                    container
-                                    spacing={16}
-                                    alignItems={'center'}
-                                    direction={'row'}
-                                    justify={'space-between'}
-                                >
-                                    <Grid item>
-                                        <Typography variant="headline" component="h3">
-                                            <Link to={{ pathname: `/message/${message.Id}` }}>
-                                                {message.Title}
-                                            </Link>
-                                        </Typography>
-                                        <Typography component="p">
-                                            by: <Link to={`/user/${message.UserId}`}>
-                                                {message.UserName}
-                                            </Link> on <Timestamp time={message.PostedAt} format="full" />
-                                        </Typography>
-                                    </Grid>
-                                </Grid>
-                            </CardContent>
-                        </Card>
-                    )
-                })}
+                {inner}
                 <MessageAdd
                     userId={this.state.userId} >
                 </MessageAdd>
