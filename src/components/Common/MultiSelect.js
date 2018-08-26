@@ -176,7 +176,7 @@ const promiseOptions = inputValue =>
                 }
             }))
         }
-        result([]);
+        resolve([]);
     });
 
 class MultiSelect extends Component {
