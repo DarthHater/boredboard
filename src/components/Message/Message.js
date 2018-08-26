@@ -71,7 +71,7 @@ class Message extends Component {
                         {this.props.message.Title }
                     </h2>
                     <div className="members">
-                        <People style={iconStyle}/> 
+                        <People style={iconStyle}/>
                             <ul style={ulStyle}>
                             {output}
                             </ul>
@@ -81,8 +81,8 @@ class Message extends Component {
                     messageId={ this.state.messageId }
                     >
                 </MessagePost>
-                <MessageReply 
-                    userId={this.state.userId} 
+                <MessageReply
+                    userId={this.state.userId}
                     messageId={this.props.message.Id}
                     value=''
                     >

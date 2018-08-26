@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { messageActions } from '../../../actions'; 
+import { messageActions } from '../../../actions';
 import * as auth from '../../../auth/authentication';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
@@ -20,7 +20,7 @@ class MessageAdd extends Component {
         };
 
         this.handlePostChange = this.handlePostChange.bind(this);
-        this.handleThreadChange = this.handleThreadChange.bind(this);
+        // this.handleThreadChange = this.handleThreadChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -47,7 +47,7 @@ class MessageAdd extends Component {
             }
         }
         this.props.dispatch(messageActions.addMessage(data));
-        
+
         this.setState({title: '', body: ''});
 
         event.preventDefault();
@@ -83,7 +83,7 @@ class MessageAdd extends Component {
                         errorMessages={['this field is required']}
                     />
                     <p></p>
-                    <Button 
+                    <Button
                         type="submit" >
                         say it!
                     </Button>

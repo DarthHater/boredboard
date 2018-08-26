@@ -9,7 +9,6 @@ import * as auth from '../../../auth/authentication';
 import lightBlue from '@material-ui/core/colors/lightBlue';
 import grey from '@material-ui/core/colors/grey';
 
-
 var style = {
     messages: {
         overflowY: 'scroll',
@@ -19,6 +18,8 @@ var style = {
         message: {
             display: 'flex',
             marginBottom: '20px',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
             fromMe: {
                 username: {
                     display: 'none'
@@ -31,11 +32,11 @@ var style = {
                     padding: '20px',
                     border: '1px',
                     borderRadius: '5px',
-                    paddingRight: '50px' 
+                    paddingRight: '50px'
                 },
                 display: 'flex',
                 justifyContent: 'flex-end',
-                marginBottom: '5px' 
+                marginBottom: '5px'
             },
             username: {
                 fontWeight: 'bold',
@@ -50,7 +51,7 @@ var style = {
                 backgroundColor: grey[200],
                 border: '1px',
                 borderRadius: '5px',
-                paddingRight: '50px' 
+                paddingRight: '50px'
             }
         }
     }
@@ -91,7 +92,7 @@ class MessagePost extends Component {
                             <div style={(fromMe ? style.messages.message.fromMe : style.messages.message)}>
                                     <div style={
                                         (
-                                            fromMe ? style.messages.message.fromMe.username : style.messages.message.username 
+                                            fromMe ? style.messages.message.fromMe.username : style.messages.message.username
                                         )}>
                                         {/* <Link to={`/user/${post.UserId}`}> */}
                                         {post.UserName}

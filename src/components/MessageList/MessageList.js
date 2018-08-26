@@ -63,9 +63,9 @@ class MessageList extends Component {
                         </Card>
                     )
                 })}
-                {/* <MessageAdd
+                <MessageAdd
                     userId={this.state.userId} >
-                </MessageAdd> */}
+                </MessageAdd>
             </div>
         );
     }
