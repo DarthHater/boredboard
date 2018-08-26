@@ -24,6 +24,20 @@ var iconStyle = {
     float: 'left'
 }
 
+var style = {
+    container: {
+        display: 'flex',
+        flexDirection: 'column'
+    },
+    h2: {
+        textAlign: 'center',
+        padding: '20px 0',
+        margin: 0,
+        borderBottom: '1px solid #ddd',
+        backgroundColor: '#eee'
+      }
+}
+
 class Message extends Component {
 
     constructor(props) {
@@ -48,12 +62,12 @@ class Message extends Component {
         }
 
         return (
-            <div className='container'>
+            <div style={style.container}>
                 <header>
                     <h3 className="backToIt">
                         <Link to={`/messages`}>Back to it</Link>
                     </h3>
-                    <h2>
+                    <h2 style={style.h2}>
                         {this.props.message.Title }
                     </h2>
                     <div className="members">

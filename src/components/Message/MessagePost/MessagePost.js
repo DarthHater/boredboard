@@ -5,10 +5,55 @@ import WebSocket from 'react-websocket';
 import { connect } from 'react-redux';
 import { messageActions } from '../../../actions/index';
 import config from 'react-global-configuration';
+import * as auth from '../../../auth/authentication';
+import lightBlue from '@material-ui/core/colors/lightBlue';
+import grey from '@material-ui/core/colors/grey';
 
-var ulStyle = {
-    listStyleType: 'none',
-    paddingLeft: 5
+
+var style = {
+    messages: {
+        overflowY: 'scroll',
+        overflowX: 'hidden',
+        flexGrow: 1,
+        padding: '20px',
+        message: {
+            display: 'flex',
+            marginBottom: '20px',
+            fromMe: {
+                username: {
+                    display: 'none'
+                },
+                body: {
+                    backgroundColor: lightBlue[300],
+                    color: 'white',
+                    maxWidth: '80%',
+                    display: 'inline-block',
+                    padding: '20px',
+                    border: '1px',
+                    borderRadius: '5px',
+                    paddingRight: '50px' 
+                },
+                display: 'flex',
+                justifyContent: 'flex-end',
+                marginBottom: '5px' 
+            },
+            username: {
+                fontWeight: 'bold',
+                fontSize: '0.9rem',
+                color: '#999',
+                marginBottom: '5px'
+            },
+            body: {
+                maxWidth: '80%',
+                display: 'inline-block',
+                padding: '20px',
+                backgroundColor: grey[200],
+                border: '1px',
+                borderRadius: '5px',
+                paddingRight: '50px' 
+            }
+        }
+    }
 }
 
 class MessagePost extends Component {
@@ -17,7 +62,8 @@ class MessagePost extends Component {
         super(props);
 
         this.state = {
-            baseUrl: config.get('WS_ROOT')
+            baseUrl: config.get('WS_ROOT'),
+            userId: auth.getUserId()
         }
         this.props.dispatch(messageActions.loadMessagePosts(this.props.messageId));
     }
@@ -29,26 +75,37 @@ class MessagePost extends Component {
         }
     }
 
+    messageFromMe(userId) {
+        if (userId == this.state.userId) {
+            return true;
+        }
+        return false;
+    }
+
     render() {
         return (
-            <div className="posts">
-                <ul className="postsListUl" style={ulStyle}>
+            <div style={style.messages}>
                 {this.props.message_posts.map(post => {
+                        let fromMe = this.messageFromMe(post.UserId);
                         return (
-                            <li key={post.Id} className="post">
-                                <p>
-                                    by: <Link to={`/user/${post.UserId}`}>
+                            <div style={(fromMe ? style.messages.message.fromMe : style.messages.message)}>
+                                    <div style={
+                                        (
+                                            fromMe ? style.messages.message.fromMe.username : style.messages.message.username 
+                                        )}>
+                                        {/* <Link to={`/user/${post.UserId}`}> */}
                                         {post.UserName}
-                                    </Link>
-                                    &nbsp;on <Timestamp time={post.PostedAt} format="full" />
-                                </p>
-                                <p>
-                                    {post.Body}
-                                </p>
-                            </li>
+                                        {/* </Link> */}
+                                    </div>
+                                    <div style={
+                                        (
+                                            fromMe ? style.messages.message.fromMe.body : style.messages.message.body
+                                        )}>
+                                        {post.Body}
+                                    </div>
+                            </div>
                         )
                     })}
-                </ul>
 
                 <WebSocket url={this.state.baseUrl}
                     onMessage={this.handleSocket.bind(this)} />
