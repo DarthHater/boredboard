@@ -6,6 +6,11 @@ import { connect } from 'react-redux';
 import { messageActions } from '../../../actions/index';
 import config from 'react-global-configuration';
 
+var ulStyle = {
+    listStyleType: 'none',
+    paddingLeft: 5
+}
+
 class MessagePost extends Component {
 
     constructor(props) {
@@ -27,7 +32,7 @@ class MessagePost extends Component {
     render() {
         return (
             <div className="posts">
-                <ul className="postsListUl">
+                <ul className="postsListUl" style={ulStyle}>
                 {this.props.message_posts.map(post => {
                         return (
                             <li key={post.Id} className="post">
