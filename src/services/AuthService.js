@@ -15,7 +15,7 @@ function login(data) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-        }  
+        }
         })
         .then(function(response) {
             if (!response.ok) {
@@ -37,12 +37,12 @@ function login(data) {
 
 function register(data) {
     let baseUrl = config.get('API_ROOT');
-    
+
     return axios.post(`${baseUrl}/register`, data, {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-        }  
+        }
         })
         .then(function(response) {
             if (!response.ok) {

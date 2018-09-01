@@ -7,6 +7,10 @@ export function isLoggedIn() {
     return true;
 }
 
+export function userHasPermission(permission) {
+    return permission.includes(getUserRole());
+}
+
 export function getUsername() {
     let decoded = jwt_decode(sessionStorage.getItem('jwt'));
 
@@ -17,6 +21,15 @@ export function getUserId() {
     let decoded = jwt_decode(sessionStorage.getItem('jwt'));
 
     return decoded.id;
+}
+
+export function getUserRole() {
+    let decoded = jwt_decode(sessionStorage.getItem('jwt'));
+    return decoded.role;
+}
+
+export function getRequestHeaders() {
+    return { 'AUTHORIZATION': `Bearer ${sessionStorage.jwt}` }
 }
 
 export function logOut() {
