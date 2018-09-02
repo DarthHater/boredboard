@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { threadActions } from '../../../actions'; 
+import { threadActions } from '../../../actions';
 import * as auth from '../../../auth/authentication';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
@@ -47,7 +47,7 @@ class ThreadAdd extends Component {
             }
         }
         this.props.dispatch(threadActions.addThread(data));
-        
+
         this.setState({title: '', body: ''});
 
         event.preventDefault();
@@ -83,7 +83,7 @@ class ThreadAdd extends Component {
                         errorMessages={['this field is required']}
                     />
                     <p></p>
-                    <Button 
+                    <Button
                         type="submit" >
                         say it!
                     </Button>

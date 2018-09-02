@@ -20,7 +20,7 @@ class ThreadReply extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
             value: ''
         };
         this.handleChange = this.handleChange.bind(this);
@@ -58,10 +58,10 @@ class ThreadReply extends Component {
                     validators={['required']}
                     errorMessages={['this field is required']}
                 />
-                <Button 
-                    variant="contained" 
+                <Button
+                    variant="contained"
                     color="primary"
-                    type="submit" 
+                    type="submit"
                 >say it!</Button>
             </ValidatorForm>
         );

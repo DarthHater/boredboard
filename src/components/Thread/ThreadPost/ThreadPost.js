@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { threadActions } from '../../../actions/index';
 import config from 'react-global-configuration';
 import * as auth from '../../../auth/authentication';
+import { canEditPost } from '../../../helpers/PostHelper';
 
 class ThreadPost extends Component {
 
@@ -39,11 +40,17 @@ class ThreadPost extends Component {
         this.props.dispatch(threadActions.editPost(text, this.state.postId));
     }
 
+    handleKeyPress = ({ key }) => {
+        if (key === 'Enter') {
+
+        }
+    }
+
     render() {
         return (
             <div className="posts">
                 <ul className="postsListUl">
-                {this.props.posts.map(post => {
+                    {this.props.posts.map(post => {
                         return (
                             <li key={post.Id} className="post">
                                 <p>
@@ -53,19 +60,20 @@ class ThreadPost extends Component {
                                     &nbsp;on <Timestamp time={post.PostedAt} format="full" />
                                 </p>
                                 <p>
-                                { auth.checkUser(post.UserId) ? (
-                                    <EditableLabel text={post.Body}
-                                    labelClassName='editPostLabel'
-                                    inputClassName='editPostInput'
-                                    inputWidth='200px'
-                                    inputHeight='25px'
-                                    inputFontWeight='bold'
-                                    onFocus={(evt) => this.handleFocus(post.Id, evt)}
-                                    onFocusOut={this._handleFocusOut}
-                                    />
-                                ) : (
-                                    post.Body
-                                )}
+                                    {auth.checkUser(post.UserId) && canEditPost(post) ? (
+                                        <EditableLabel text={post.Body}
+                                            labelClassName='editPostLabel'
+                                            inputClassName='editPostInput'
+                                            inputWidth='200px'
+                                            inputHeight='25px'
+                                            inputFontWeight='bold'
+                                            onFocus={(evt) => this.handleFocus(post.Id, evt)}
+                                            onFocusOut={this._handleFocusOut}
+                                            onKeyPress={this.handleKeyPress}
+                                        />
+                                    ) : (
+                                            post.Body
+                                        )}
                                 </p>
                             </li>
                         )

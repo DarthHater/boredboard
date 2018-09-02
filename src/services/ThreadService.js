@@ -75,7 +75,7 @@ class ThreadService {
 
     editPost(text, postId) {
         let baseUrl = config.get('API_ROOT');
-        const headers = this.requestHeaders();
+        const headers = getRequestHeaders();
 
         return axios.patch(`${baseUrl}/posts/${postId}`, JSON.stringify({
                 Body: text

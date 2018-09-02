@@ -31,19 +31,19 @@ class Thread extends Component {
                         <Link to={`/`}>Back to it</Link>
                     </h3>
                     <h1>
-                        {this.props.thread.Title }
+                        {this.props.thread.Title}
                     </h1>
-                    by: <Link to={`/user/${this.props.thread.UserId}`}>{this.props.thread.UserName }</Link> on <Timestamp time={this.props.thread.PostedAt} format="full" />
+                    by: <Link to={`/user/${this.props.thread.UserId}`}>{this.props.thread.UserName}</Link> on <Timestamp time={this.props.thread.PostedAt} format="full" />
                 </header>
                 <ThreadPost
-                    threadId={ this.state.threadId }
-                    >
+                    threadId={this.state.threadId}
+                >
                 </ThreadPost>
-                <ThreadReply 
-                    userId={this.state.userId} 
+                <ThreadReply
+                    userId={this.state.userId}
                     threadId={this.props.thread.Id}
                     value=''
-                    >
+                >
                 </ThreadReply>
             </div>
         );
