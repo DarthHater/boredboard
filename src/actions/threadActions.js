@@ -1,7 +1,16 @@
 import ThreadService from '../services/ThreadService';
 import { threadConstants } from '../constants/action-types';
 
-j
+export const threadActions = {
+    addPost,
+    addThread,
+    deleteThread,
+    editPost,
+    loadPosts,
+    loadThread,
+    loadThreads,
+    recievePost
+};
 
 function loadThreads() {
     return function (dispatch) {
