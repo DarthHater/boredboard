@@ -2,55 +2,68 @@ import ThreadService from '../services/ThreadService';
 import { threadConstants } from '../constants/action-types';
 
 export const threadActions = {
-    loadThreads,
-    loadThread,
-    loadPosts,
     addPost,
-    recievePost,
-    editPost
+    addThread,
+    deleteThread,
+    editPost,
+    loadPosts,
+    loadThread,
+    loadThreads,
+    recievePost
 };
 
 function loadThreads() {
-    return function(dispatch) {
+    return function (dispatch) {
         return ThreadService.getAllThreads()
-        .then(threads => {
-            dispatch(loadThreadsSuccess(threads));
-        }).catch(error => {
-            throw(error);
-        });
+            .then(threads => {
+                dispatch(loadThreadsSuccess(threads));
+            }).catch(error => {
+                throw (error);
+            });
     };
 }
 
 function loadThread(threadId) {
-    return function(dispatch) {
+    return function (dispatch) {
         return ThreadService.getThread(threadId)
-        .then(thread => {
-            dispatch(loadThreadSuccess(thread));
-        }).catch(error => {
-            throw(error);
-        });
+            .then(thread => {
+                dispatch(loadThreadSuccess(thread));
+            }).catch(error => {
+                throw (error);
+            });
     };
 }
 
 function loadPosts(threadId) {
-    return function(dispatch) {
+    return function (dispatch) {
         return ThreadService.getPosts(threadId)
-        .then(posts => {
-            dispatch(loadPostsSuccess(posts));
-        }).catch(error => {
-            throw(error);
-        });
+            .then(posts => {
+                dispatch(loadPostsSuccess(posts));
+            }).catch(error => {
+                throw (error);
+            });
     };
 }
 
 function addPost(threadId, userId, post) {
-    return function(dispatch) {
+    return function (dispatch) {
         return ThreadService.postPost(threadId, userId, post)
-        .then(response => {
-            dispatch(addPostSuccess(stubPost(response, threadId, userId, post)));
-        }).catch(error => {
-            throw(error);
-        });
+            .then(response => {
+                dispatch(addPostSuccess(stubPost(response, threadId, userId, post)));
+            }).catch(error => {
+                throw (error);
+            });
+    }
+}
+
+function addThread(thread) {
+    return function (dispatch) {
+        return ThreadService.postThread(thread)
+            .then(response => {
+                dispatch(addThreadSuccess(stubThread(response, thread)));
+            }).catch(error => {
+                throw (error);
+            });
     }
 }
 
@@ -66,8 +79,19 @@ function editPost(text, postId) {
 }
 
 function recievePost(post) {
-    return function(dispatch) {
+    return function (dispatch) {
         dispatch(recievePostSuccess(post));
+    }
+}
+
+function deleteThread(threadId) {
+    return function (dispatch) {
+        return ThreadService.deleteThread(threadId)
+            .then(response => {
+                dispatch(deleteThreadSuccess(threadId));
+            }).catch(error => {
+                throw (error);
+            });
     }
 }
 
@@ -77,7 +101,18 @@ function stubPost(response, threadId, userId, post) {
         ThreadId: threadId,
         UserId: userId,
         Body: post,
-        PostedAt: new Date(Date.now())
+        PostedAt: new Date(Date.now()),
+        UserName: response.username
+    };
+}
+
+function stubThread(response, thread) {
+    return {
+        Id: response.id,
+        UserId: thread.Thread.UserId,
+        Title: thread.Thread.Title,
+        PostedAt: new Date(Date.now()),
+        UserName: response.username
     };
 }
 
@@ -99,6 +134,14 @@ function addPostSuccess(post) {
 
 function editPostSuccess() {
     return { type: threadConstants.EDIT_POST };
+}
+
+function deleteThreadSuccess(threadId) {
+    return { type: threadConstants.DELETE_THREAD, threadId };
+}
+
+function addThreadSuccess(thread) {
+    return { type: threadConstants.ADD_THREAD, thread };
 }
 
 function recievePostSuccess(post) {

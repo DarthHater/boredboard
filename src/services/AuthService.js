@@ -4,7 +4,8 @@ import axios from 'axios';
 
 export const authService = {
     login,
-    logout
+    logout,
+    register
 };
 
 function login(data) {
@@ -14,7 +15,7 @@ function login(data) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-        }  
+        }
         })
         .then(function(response) {
             if (!response.ok) {
@@ -28,6 +29,26 @@ function login(data) {
                     }
                 }
             }
+        })
+        .catch(error => {
+            return error;
+        });
+}
+
+function register(data) {
+    let baseUrl = config.get('API_ROOT');
+
+    return axios.post(`${baseUrl}/register`, data, {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        }
+        })
+        .then(function(response) {
+            if (!response.ok) {
+                return response.data;
+            }
+            return response.data;
         })
         .catch(error => {
             return error;

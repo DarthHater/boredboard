@@ -16,16 +16,18 @@ const styles = theme => ({
     }
   });
 
-class Login extends Component {
+class Register extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             submitted: false,
             username: '',
-            password: ''
+            emailaddress: '', 
+            userpassword: ''
         };
 
+        this.handleUserNameChange = this.handleUserNameChange.bind(this);
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
     }
@@ -37,20 +39,25 @@ class Login extends Component {
 
         let body = JSON.stringify({
             username: this.state.username,
-            password: this.state.password
+            emailaddress: this.state.emailaddress,
+            userpassword: this.state.userpassword
         });
 
         const {dispatch} = this.props;
 
-        dispatch(userActions.login(body));
+        dispatch(userActions.register(body));
     };
 
-    handleEmailChange = event => {
+    handleUserNameChange = event => {
         this.setState({username: event.target.value});
     };
 
+    handleEmailChange = event => {
+        this.setState({emailaddress: event.target.value});
+    };
+
     handlePasswordChange = event => {
-        this.setState({password: event.target.value});
+        this.setState({userpassword: event.target.value});
     };
 
     render() {
@@ -58,16 +65,15 @@ class Login extends Component {
         return (
             <div>
                 <h3>Welcome to VLV!</h3>
-                <img src="http://i.imgur.com/yTLWX.jpg" />
-                <p> Enter your credentials to login and start shit posting </p>
+                <p>Enter your details to register as a new user</p>
                 <ValidatorForm
                     ref="form"
                     onSubmit={this.handleSubmit}
                     onError={errors => console.log(errors)}
-                >
+                >                    
                     <TextValidator
                         label="Username"
-                        onChange={this.handleEmailChange}
+                        onChange={this.handleUserNameChange}
                         name="username"
                         margin="normal"
                         value={this.state.username}
@@ -77,29 +83,39 @@ class Login extends Component {
                     />
                     <br />
                     <TextValidator
+                        label="Email Address"
+                        onChange={this.handleEmailChange}
+                        name="emailaddress"
+                        margin="normal"
+                        value={this.state.emailaddress}
+                        className={classes.textField}
+                        validators={['required', 'isEmail']}
+                        errorMessages={['this field is required', 'email is not valid']}
+                    />
+                    <br />
+                    <TextValidator
                         label="Password"
                         onChange={this.handlePasswordChange}
                         name="password"
-                        type="password"
                         margin="normal"
-                        value={this.state.password}
+                        value={this.state.userpassword}
                         className={classes.textField}
                         validators={['required']}
                         errorMessages={['this field is required']}
                     />
                     <br />
-                    <Button variant="contained" color="primary" type="submit">Login</Button>
+                    <Button type="submit">Register</Button>
                 </ValidatorForm>
-                <h4>Don't have an account?</h4>
+                <h4>Have an account already?</h4>
                 <p>
-                    Go <Link to="/register">here</Link> to register.
+                    Go <Link to="/login">here</Link> to login.
                 </p>
             </div>
         );
     }
 }
 
-Login.propTypes = {
+Register.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
@@ -109,4 +125,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(withStyles(styles)(Login));
+export default connect(mapStateToProps)(withStyles(styles)(Register));

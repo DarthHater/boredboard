@@ -19,6 +19,8 @@ export default function userReducer(state = initialState, action) {
             return {};
         case userConstants.LOGOUT:
             return {};
+        case userConstants.REGISTER_SUCCESS:
+            return {};
         default:
             return state;
     }
