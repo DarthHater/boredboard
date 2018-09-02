@@ -61,6 +61,7 @@ class ThreadList extends Component {
             scrollBottom - this.state.scrollPosition < 100 
             && !loading
             && this.props.threads.length >= 20
+            && !this.props.threadsNull
         ) {
             this.state.loading = true;
             let thread = this.props.threads[0];
@@ -152,6 +153,7 @@ function mapStateToProps(state, ownProps) {
     return {
         threads: state.threads,
         thread: state.thread,
+        threadsNull: state.threadsNull,
         posts: state.posts
     };
 }

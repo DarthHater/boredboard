@@ -17,7 +17,9 @@ function loadThreads(since) {
             .then(threads => {
                 if (!threads.response) {
                     dispatch(loadThreadsSuccess(threads));
-                } 
+                } else {
+                    dispatch(noMoreThreads(true));
+                }
             }).catch(error => {
                 throw (error);
             });
@@ -110,8 +112,8 @@ function loadThreadsSuccess(threads) {
     return { type: threadConstants.LOAD_THREADS_SUCCESS, threads };
 }
 
-function noMoreThreads() {
-    return { type: threadConstants.NO_MORE_THREADS };
+function noMoreThreads(noMasThreads) {
+    return { type: threadConstants.NO_MORE_THREADS, noMasThreads };
 }
 
 function loadThreadSuccess(thread) {

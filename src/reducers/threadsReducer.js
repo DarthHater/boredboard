@@ -15,8 +15,6 @@ export default function threadsReducer(state = initialState.threads, action) {
         case threadConstants.ADD_THREAD:
             let newAddThread = insertItem(state, action.thread);
             return newAddThread;
-        case threadConstants.NO_MORE_THREADS:
-            return [];
         default:
             return state;
     }
