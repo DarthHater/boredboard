@@ -22,13 +22,16 @@ class ThreadList extends Component {
             userId: auth.getUserId(),
             canDeleteThreads: auth.userHasPermission(permissions.deleteThread),
             loading: false,
-            scrollPosition: 0
+            scrollPosition: 0,
+            rendered: false
         }
     }
 
     componentDidMount() {
         window.addEventListener('scroll', this.throttle(this.handleScroll, 250));
-        this.props.dispatch(threadActions.loadThreads(new Date().valueOf()));
+        if (this.props.threads.length == 0) {
+            this.props.dispatch(threadActions.loadThreads(new Date().valueOf()));
+        }
     }
 
     componentWillUnmount () {
@@ -68,6 +71,7 @@ class ThreadList extends Component {
     }
 
     componentDidUpdate(prevProps) {
+        this.state.rendered = true;
         window.scrollTo(0, this.state.scrollPosition);
     }
 

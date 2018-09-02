@@ -15,7 +15,9 @@ function loadThreads(since) {
     return function (dispatch) {
         return ThreadService.getAllThreads(since)
             .then(threads => {
-                dispatch(loadThreadsSuccess(threads));
+                if (!threads.response) {
+                    dispatch(loadThreadsSuccess(threads));
+                } 
             }).catch(error => {
                 throw (error);
             });
@@ -106,6 +108,10 @@ function stubThread(response, thread) {
 
 function loadThreadsSuccess(threads) {
     return { type: threadConstants.LOAD_THREADS_SUCCESS, threads };
+}
+
+function noMoreThreads() {
+    return { type: threadConstants.NO_MORE_THREADS };
 }
 
 function loadThreadSuccess(thread) {
