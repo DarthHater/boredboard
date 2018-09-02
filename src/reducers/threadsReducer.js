@@ -7,7 +7,9 @@ export default function threadsReducer(state = initialState.threads, action) {
             return [
                 ...state,
                 ...action.threads
-            ];
+            ].sort((a, b) => {
+                return new Date(a.PostedAt) - new Date(b.PostedAt)
+            });
         case threadConstants.DELETE_THREAD:
             return state.filter(thread => thread.Id !== action.threadId);
         case threadConstants.ADD_THREAD:
