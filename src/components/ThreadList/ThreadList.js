@@ -28,7 +28,7 @@ class ThreadList extends Component {
     }
 
     componentDidMount() {
-        window.addEventListener('scroll', this.throttle(this.handleScroll, 250));
+        window.addEventListener('scroll', this.throttle(this.handleScroll, 500));
         if (this.props.threads.length == 0) {
             this.props.dispatch(threadActions.loadThreads(new Date().valueOf()));
         }
@@ -53,12 +53,13 @@ class ThreadList extends Component {
     }
 
     handleScroll = (e) => {
-        this.state.scrollPosition = window.scrollY;
-        let scrollBottom = window.innerHeight;
+        this.state.scrollPosition = document.getElementsByTagName('html')[0].scrollTop;
+        let scrollBottom = document.body.clientHeight;
         let loading = this.state.loading;
+        let height = (this.state.scrollPosition + window.innerHeight);
 
         if (
-            scrollBottom - this.state.scrollPosition < 100 
+            scrollBottom - height < 300 
             && !loading
             && this.props.threads.length >= 20
             && !this.props.threadsNull
@@ -73,7 +74,7 @@ class ThreadList extends Component {
 
     componentDidUpdate(prevProps) {
         this.state.rendered = true;
-        window.scrollTo(0, this.state.scrollPosition);
+        document.body.scrollTo(0, this.state.scrollPosition);
     }
 
     render() {

@@ -25,19 +25,19 @@ class Thread extends Component {
     }
 
     componentDidMount = () => {
-        const containerNode = ReactDOM.findDOMNode(this.refs.scroller);
-        containerNode.addEventListener('scroll', this.handleScroll);
-    }
-
-    handleScroll = () => {
-        console.log('Reached Top');
+        
     }
 
     render() {
         return (
-            <div 
-                ref="scroller"
-                >
+            <div
+                style= {{
+                    paddingLeft: '20px',
+                    paddingRight: '20px',
+                    marginTop: 64,
+                    overflowY: 'auto',
+                }}
+            >
                 <header>
                     <h3 className="backToIt">
                         <Link to={`/`}>Back to it</Link>
