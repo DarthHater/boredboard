@@ -25,31 +25,49 @@ class ThreadList extends Component {
     }
 
     componentDidMount() {
+        window.addEventListener('scroll', this.handleScroll);
         this.props.dispatch(threadActions.loadThreads());
     }
 
-    handleScroll = () => {
-        if (this.scroller && this.scroller.scrollTop < 100) {
-            console.log('Reached Top');
-        }
-
+    componentWillUnmount () {
+        window.removeEventListener('scroll', this.handleScroll);
     }
 
     deleteThread = id => {
         this.props.dispatch(threadActions.deleteThread(id));
     }
 
+    handleScroll = (e) => {
+        let scrollTop = window.scrollY;
+        if (scrollTop < 200) {
+            console.log(scrollTop);
+        }
+    }
+
     render() {
         return (
             <div
-                className='container'
+                style= {{
+                    paddingLeft: '20px',
+                    paddingRight: '20px',
+                    display: 'flex',
+                    flexDirection: 'column-reverse',
+                    overflowY: 'auto',
+                }}
                 onScroll={this.handleScroll}
-                ref={(scroller) => {
-                this.scroller = scroller;
-            }}>
+            >
+                <ThreadAdd
+                    userId={this.state.userId} >
+                </ThreadAdd>
                 {this.props.threads.map(thread => {
                     return (
-                        <Card key={thread.Id}>
+                        <Card 
+                            style= {{
+                                display: 'flex',
+                                flexDirection: 'column-reverse',
+                            }}
+                            key={thread.Id}
+                        >
                             <CardContent>
                                 <Grid
                                     container
@@ -86,9 +104,6 @@ class ThreadList extends Component {
                         </Card>
                     )
                 })}
-                <ThreadAdd
-                    userId={this.state.userId} >
-                </ThreadAdd>
             </div>
         );
     }
