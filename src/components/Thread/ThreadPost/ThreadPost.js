@@ -40,12 +40,6 @@ class ThreadPost extends Component {
         this.props.dispatch(threadActions.editPost(text, this.state.postId));
     }
 
-    handleKeyPress = ({ key }) => {
-        if (key === 'Enter') {
-
-        }
-    }
-
     render() {
         return (
             <div className="posts">
