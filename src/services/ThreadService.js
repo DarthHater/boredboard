@@ -4,11 +4,11 @@ import { getRequestHeaders } from '../auth/authentication';
 
 class ThreadService {
 
-    getAllThreads() {
+    getAllThreads(since) {
         let baseUrl = config.get('API_ROOT');
         const headers = getRequestHeaders();
 
-        return axios.get(`${baseUrl}/threads`, {
+        return axios.get(`${baseUrl}/threads/${since}`, {
             headers: headers
         }).then(response => {
             return response.data;

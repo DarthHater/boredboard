@@ -20,13 +20,14 @@ class ThreadList extends Component {
 
         this.state = {
             userId: auth.getUserId(),
-            canDeleteThreads: auth.userHasPermission(permissions.deleteThread)
+            canDeleteThreads: auth.userHasPermission(permissions.deleteThread),
+            loading: false
         }
     }
 
     componentDidMount() {
-        window.addEventListener('scroll', this.handleScroll);
-        this.props.dispatch(threadActions.loadThreads());
+        window.addEventListener('scroll', this.throttle(this.handleScroll, 250));
+        this.props.dispatch(threadActions.loadThreads(new Date().valueOf()));
     }
 
     componentWillUnmount () {
@@ -37,10 +38,30 @@ class ThreadList extends Component {
         this.props.dispatch(threadActions.deleteThread(id));
     }
 
+    throttle(fn, wait) {
+        var time = Date.now();
+        return function() {
+            if ((time + wait - Date.now()) < 0) {
+            fn();
+            time = Date.now();
+            }
+        }
+    }
+
     handleScroll = (e) => {
         let scrollTop = window.scrollY;
-        if (scrollTop < 200) {
-            console.log(scrollTop);
+        let scrollBottom = window.innerHeight;
+        console.log(scrollBottom);
+        let loading = this.state.loading;
+
+        if (
+            scrollBottom - scrollTop < 100 
+            && !loading
+            && this.props.threads.length >= 20
+        ) {
+            let date = new Date(this.props.threads[this.props.threads.length - 1].PostedAt).valueOf();
+            this.state.loading = true;
+            this.props.dispatch(threadActions.loadThreads(date));
         }
     }
 
@@ -54,7 +75,6 @@ class ThreadList extends Component {
                     flexDirection: 'column-reverse',
                     overflowY: 'auto',
                 }}
-                onScroll={this.handleScroll}
             >
                 <ThreadAdd
                     userId={this.state.userId} >

@@ -11,9 +11,9 @@ export const threadActions = {
     recievePost
 };
 
-function loadThreads() {
+function loadThreads(since) {
     return function (dispatch) {
-        return ThreadService.getAllThreads()
+        return ThreadService.getAllThreads(since)
             .then(threads => {
                 dispatch(loadThreadsSuccess(threads));
             }).catch(error => {
