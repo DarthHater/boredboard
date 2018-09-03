@@ -5,8 +5,7 @@ import { push } from 'connected-react-router'
 export const userActions = {
     login,
     logout,
-    register,
-    updateMessageUsers
+    register
 };
 
 function login(data) {
@@ -53,10 +52,4 @@ function loginSuccess(user) {
 
 function registerSuccess(user) {
     return {type: userConstants.REGISTER_SUCCESS, user};
-}
-
-function updateMessageUsers(users) {
-    return dispatch => {
-        return dispatch({type: userConstants.UPDATE_MESSAGE_USERS, users});
-    }
 }

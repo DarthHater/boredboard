@@ -24,6 +24,15 @@ class MessageAdd extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    componentDidMount() {
+        ValidatorForm.addValidationRule('multiselectNotEmpty', () => {
+            if (this.props.message_users.length === 0) {
+                return false;
+            }
+            return true;
+        });
+    }
+
     handleMessageChange = (event) => {
         this.setState({title: event.target.value});
     }
@@ -65,12 +74,12 @@ class MessageAdd extends Component {
         return (
             <div className='container'>
                 <h3>Submit a new message</h3>
-                <MultiSelect />
                 <ValidatorForm
                     ref="form"
                     onSubmit={this.handleSubmit}
                     onError={errors => console.log(errors)}
                 >
+                    <MultiSelect />
                     <TextValidator
                         label="Title"
                         onChange={this.handleMessageChange}

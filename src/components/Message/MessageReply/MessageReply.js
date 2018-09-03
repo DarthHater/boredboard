@@ -9,18 +9,18 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
 const styles = {
     floatingLabelStyle: {
-      color: orange[500],
+        color: orange[500],
     },
     floatingLabelFocusStyle: {
-      color: blue[500],
+        color: blue[500],
     },
-  };
+};
 
 class MessageReply extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
             value: ''
         };
         this.handleChange = this.handleChange.bind(this);
@@ -28,13 +28,13 @@ class MessageReply extends Component {
     }
 
     handleChange(event) {
-        this.setState({value: event.target.value});
+        this.setState({ value: event.target.value });
     }
 
     handleSubmit(event) {
         this.props.dispatch(messageActions.addMessagePost(this.props.messageId, this.props.userId, this.state.value));
 
-        this.setState({value: ''});
+        this.setState({ value: '' });
 
         event.preventDefault();
     }
@@ -58,10 +58,10 @@ class MessageReply extends Component {
                     validators={['required']}
                     errorMessages={['this field is required']}
                 />
-                <Button 
-                    variant="contained" 
+                <Button
+                    variant="contained"
                     color="primary"
-                    type="submit" 
+                    type="submit"
                 >say it!</Button>
             </ValidatorForm>
         );

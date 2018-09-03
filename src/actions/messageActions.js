@@ -7,7 +7,9 @@ export const messageActions = {
     loadMessagePosts,
     loadMessage,
     loadMessages,
-    recieveMessagePost
+    recieveMessagePost,
+    updateMessageUsers,
+    clearMessageUsers
 };
 
 function loadMessages(userId) {
@@ -59,11 +61,19 @@ function addMessage(message) {
         return MessageService.postMessage(message)
             .then(response => {
                 dispatch(addMessageSuccess(stubMessage(response, message)));
+                dispatch(clearMessageUsers());
             }).catch(error => {
                 throw (error);
             });
     }
 }
+
+function updateMessageUsers(users) {
+    return dispatch => {
+        return dispatch({ type: messageConstants.UPDATE_MESSAGE_USERS, users });
+    }
+}
+
 
 function recieveMessagePost(post) {
     return function (dispatch) {
@@ -110,6 +120,10 @@ function addMessagePostSuccess(message_post) {
 
 function addMessageSuccess(message) {
     return { type: messageConstants.ADD_MESSAGE, message };
+}
+
+function clearMessageUsers() {
+    return { type: messageConstants.CLEAR_MESSAGE_USERS };
 }
 
 function recieveMessagePostSuccess(message_post) {

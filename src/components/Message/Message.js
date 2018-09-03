@@ -57,7 +57,7 @@ class Message extends Component {
         let output;
         if (memberList) {
             output = memberList.map(
-                member => <li style={liStyle}><a href={`/user/${member.UserId}`}>{member.UserName}</a></li>
+                member => <li key={member.UserId} style={liStyle}><a href={`/user/${member.UserId}`}>{member.UserName}</a></li>
             );
         }
 

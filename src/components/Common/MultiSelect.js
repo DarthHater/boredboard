@@ -3,19 +3,20 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Chip from '@material-ui/core/Chip';
 import MenuItem from '@material-ui/core/MenuItem';
 import AsyncSelect from 'react-select/lib/Async';
 import UserService from '../../services/UserService';
 import { connect } from 'react-redux';
-import { userActions } from '../../actions/userActions';
+import { messageActions } from '../../actions/messageActions';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
+import { TextValidator } from 'react-material-ui-form-validator';
 
 const styles = theme => ({
     root: {
-        flexGrow: 1
+        flexGrow: 1,
+        marginBottom: '15px'
     },
     input: {
         display: 'flex',
@@ -25,7 +26,7 @@ const styles = theme => ({
         display: 'flex',
         flexWrap: 'wrap',
         flex: 1,
-        alignItems: 'center',
+        alignItems: 'center'
     },
     chip: {
         margin: `${theme.spacing.unit / 2}px ${theme.spacing.unit / 4}px`,
@@ -35,6 +36,9 @@ const styles = theme => ({
             theme.palette.type === 'light' ? theme.palette.grey[300] : theme.palette.grey[700],
             0.08,
         ),
+    },
+    selectMenu: {
+        backgroundColor: 'red'
     },
     noOptionsMessage: {
         padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
@@ -48,7 +52,11 @@ const styles = theme => ({
         fontSize: 16,
     },
     paper: {
+        position: 'absolute',
+        zIndex: 1,
         marginTop: theme.spacing.unit,
+        left: 0,
+        right: 0,
     },
     divider: {
         height: theme.spacing.unit * 2,
@@ -67,14 +75,17 @@ function NoOptionsMessage(props) {
     );
 }
 
-function inputComponent({ inputRef, ...props }) {
+const inputComponent = ({ inputRef, ...props }) => {
     return <div ref={inputRef} {...props} />;
 }
 
-function Control(props) {
+const Control = (props) => {
     return (
-        <TextField
+        <TextValidator
             fullWidth
+            name="message-users"
+            validators={['multiselectNotEmpty']}
+            errorMessages={['this field is required']}
             InputProps={{
                 inputComponent,
                 inputProps: {
@@ -89,7 +100,7 @@ function Control(props) {
     );
 }
 
-function Option(props) {
+const Option = (props) => {
     return (
         <MenuItem
             buttonRef={props.innerRef}
@@ -105,7 +116,7 @@ function Option(props) {
     );
 }
 
-function Placeholder(props) {
+const Placeholder = (props) => {
     return (
         <Typography
             color="textSecondary"
@@ -117,7 +128,7 @@ function Placeholder(props) {
     );
 }
 
-function SingleValue(props) {
+const SingleValue = (props) => {
     return (
         <Typography className={props.selectProps.classes.singleValue} {...props.innerProps}>
             {props.children}
@@ -125,11 +136,11 @@ function SingleValue(props) {
     );
 }
 
-function ValueContainer(props) {
+const ValueContainer = (props) => {
     return <div className={props.selectProps.classes.valueContainer}>{props.children}</div>;
 }
 
-function MultiValue(props) {
+const MultiValue = (props) => {
     return (
         <Chip
             tabIndex={-1}
@@ -146,7 +157,7 @@ function MultiValue(props) {
     );
 }
 
-function Menu(props) {
+const Menu = (props) => {
     return (
         <Paper square className={props.selectProps.classes.paper} {...props.innerProps}>
             {props.children}
@@ -188,7 +199,7 @@ class MultiSelect extends Component {
                 Username: user.label
             }
         });
-        this.props.dispatch(userActions.updateMessageUsers(formatted));
+        this.props.dispatch(messageActions.updateMessageUsers(formatted));
     }
 
     render() {
@@ -212,6 +223,12 @@ class MultiSelect extends Component {
                             shrink: true,
                         },
                     }}
+                    value={this.props.message_users.map(user => {
+                        return {
+                            value: user.ID,
+                            label: user.Username
+                        }
+                    })}
                     isMulti
                     autoFocus
                     onChange={this.onChange}
@@ -230,7 +247,13 @@ MultiSelect.propTypes = {
     placeholder: PropTypes.string,
 };
 
-export default connect()(
+function mapStateToProps(state) {
+    return {
+        message_users: state.message_users
+    };
+}
+
+export default connect(mapStateToProps)(
     withStyles(
         styles, { withTheme: true }
     )(MultiSelect)

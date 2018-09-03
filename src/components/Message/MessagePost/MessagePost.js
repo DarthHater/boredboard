@@ -21,7 +21,7 @@ var style = {
             flexDirection: 'column',
             alignItems: 'flex-start',
             fromMe: {
-                username: {
+                messageInfo: {
                     display: 'none'
                 },
                 body: {
@@ -34,11 +34,12 @@ var style = {
                     borderRadius: '5px',
                     paddingRight: '50px'
                 },
+                flexDirection: 'column',
                 display: 'flex',
-                justifyContent: 'flex-end',
+                alignItems: 'flex-end',
                 marginBottom: '5px'
             },
-            username: {
+            messageInfo: {
                 fontWeight: 'bold',
                 fontSize: '0.9rem',
                 color: '#999',
@@ -89,14 +90,17 @@ class MessagePost extends Component {
                 {this.props.message_posts.map(post => {
                         let fromMe = this.messageFromMe(post.UserId);
                         return (
-                            <div style={(fromMe ? style.messages.message.fromMe : style.messages.message)}>
+                            <div key={"message-post-" + post.Id} style={(fromMe ? style.messages.message.fromMe : style.messages.message)}>
                                     <div style={
                                         (
-                                            fromMe ? style.messages.message.fromMe.username : style.messages.message.username
+                                            fromMe ? style.messages.message.fromMe.messageInfo : style.messages.message.messageInfo
                                         )}>
                                         {/* <Link to={`/user/${post.UserId}`}> */}
                                         {post.UserName}
                                         {/* </Link> */}
+                                    </div>
+                                    <div style={style.messages.message.messageInfo}>
+                                        {new Date(post.PostedAt).toLocaleString()}
                                     </div>
                                     <div style={
                                         (
