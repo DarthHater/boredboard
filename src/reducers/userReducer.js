@@ -16,7 +16,15 @@ export default function userReducer(state = initialState, action) {
                 user: action.user
             };
         case userConstants.LOGIN_FAILURE:
-            return {};
+            if (action.response.data && action.response.data.err) {
+                return {
+                    error: action.response.data.err
+                }
+            }
+
+            return {
+                error: 'error logging in'
+            };
         case userConstants.LOGOUT:
             return {};
         case userConstants.REGISTER_SUCCESS:

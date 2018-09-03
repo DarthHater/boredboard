@@ -25,7 +25,7 @@ class MessageAdd extends Component {
     }
 
     componentDidMount() {
-        ValidatorForm.addValidationRule('multiselectNotEmpty', () => {
+        ValidatorForm.addValidationRule('multiSelectNotEmpty', () => {
             if (this.props.message_users.length === 0) {
                 return false;
             }

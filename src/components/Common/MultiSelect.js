@@ -81,7 +81,7 @@ const Control = (props) => {
         <TextValidator
             fullWidth
             name="message-users"
-            validators={['multiselectNotEmpty']}
+            validators={['multiSelectNotEmpty']}
             errorMessages={['this field is required']}
             InputProps={{
                 inputComponent,
@@ -209,6 +209,13 @@ class MultiSelect extends Component {
             }),
         };
 
+        const users = this.props.message_users.map(user => {
+            return {
+                value: user.ID,
+                label: user.Username
+            }
+        });
+
         return (
             <div className={classes.root}>
                 <AsyncSelect
@@ -220,12 +227,7 @@ class MultiSelect extends Component {
                             shrink: true,
                         },
                     }}
-                    value={this.props.message_users.map(user => {
-                        return {
-                            value: user.ID,
-                            label: user.Username
-                        }
-                    })}
+                    value={users}
                     isMulti
                     autoFocus
                     onChange={this.onChange}
