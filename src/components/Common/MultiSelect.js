@@ -37,9 +37,6 @@ const styles = theme => ({
             0.08,
         ),
     },
-    selectMenu: {
-        backgroundColor: 'red'
-    },
     noOptionsMessage: {
         padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
     },
