@@ -26,8 +26,6 @@ class MessageList extends Component {
 
     componentDidMount() {
         this.props.dispatch(messageActions.loadMessages(this.state.userId));
-
-
     }
 
     render() {
