@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { messageActions } from '../../../actions';
-import * as auth from '../../../auth/authentication';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import MultiSelect from '../../Common/MultiSelect';
 
@@ -31,14 +27,19 @@ class MessageAdd extends Component {
             }
             return true;
         });
+
+        if (this.props.toUserId && this.props.toUserName) {
+            this.props.dispatch(messageActions.updateMessageUsers([{ ID: this.props.toUserId, Username: this.props.toUserName }]));
+            this.scrollDiv.focus();
+        }
     }
 
     handleMessageChange = (event) => {
-        this.setState({title: event.target.value});
+        this.setState({ title: event.target.value });
     }
 
     handlePostChange = (event) => {
-        this.setState({body: event.target.value});
+        this.setState({ body: event.target.value });
     }
 
     handleSubmit(event) {
@@ -65,7 +66,7 @@ class MessageAdd extends Component {
         })
         this.props.dispatch(messageActions.addMessage(data));
 
-        this.setState({title: '', body: ''});
+        this.setState({ title: '', body: '' });
 
         event.preventDefault();
     }
@@ -74,38 +75,41 @@ class MessageAdd extends Component {
         return (
             <div className='container'>
                 <h3>Submit a new message</h3>
-                <ValidatorForm
-                    ref="form"
-                    onSubmit={this.handleSubmit}
-                    onError={errors => console.log(errors)}
-                >
-                    <MultiSelect />
-                    <TextValidator
-                        label="Title"
-                        onChange={this.handleMessageChange}
-                        name="title"
-                        value={this.state.title}
-                        validators={['required']}
-                        errorMessages={['this field is required']}
-                    />
-                    <p></p>
-                    <TextValidator
-                        label="Say something"
-                        onChange={this.handlePostChange}
-                        name="multiline-static"
-                        value={this.state.body}
-                        multiline
-                        rows="5"
-                        margin="normal"
-                        validators={['required']}
-                        errorMessages={['this field is required']}
-                    />
-                    <p></p>
-                    <Button
-                        type="submit" >
-                        say it!
+                <div ref={div => this.scrollDiv = div}>
+                    <ValidatorForm
+                        ref="form"
+                        onSubmit={this.handleSubmit}
+                        onError={errors => console.log(errors)}
+                    >
+                        <MultiSelect />
+                        <TextValidator
+                            label="Title"
+                            onChange={this.handleMessageChange}
+                            name="title"
+                            value={this.state.title}
+                            validators={['required']}
+                            errorMessages={['this field is required']}
+                            ref={text => this.text = text}
+                        />
+                        <p></p>
+                        <TextValidator
+                            label="Say something"
+                            onChange={this.handlePostChange}
+                            name="multiline-static"
+                            value={this.state.body}
+                            multiline
+                            rows="5"
+                            margin="normal"
+                            validators={['required']}
+                            errorMessages={['this field is required']}
+                        />
+                        <p></p>
+                        <Button
+                            type="submit" >
+                            say it!
                     </Button>
-                </ValidatorForm>
+                    </ValidatorForm>
+                </div>
             </div>
         );
     }

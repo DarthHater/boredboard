@@ -31,13 +31,11 @@ class UserProfile extends Component {
 
         const { userInfo } = this.state;
 
-        const name = getUsername();
-
         return (
             <div className='container'>
                 <header>
                     <h1>
-                        {name}
+                        {userInfo.username}
                     </h1>
                 </header>
                 <div>
@@ -53,7 +51,10 @@ class UserProfile extends Component {
                     Last Posted: {new Date(userInfo.lastPosted).toLocaleString()}
                 </div>
                 <div>
-                    <Link to={`/`}>Message {name}</Link>
+                    <Link to={{ pathname: `/messages`, state: {
+                        toUserId: this.props.match.params.userid,
+                        toUserName: userInfo.username
+                    }}}>Message {userInfo.username}</Link>
                 </div>
             </div>
         );

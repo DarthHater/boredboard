@@ -12,6 +12,7 @@ import { messageActions } from '../../actions';
 import * as permissions from '../../constants/permissions';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import { withRouter } from 'react-router';
 
 class MessageList extends Component {
 
@@ -25,6 +26,8 @@ class MessageList extends Component {
 
     componentDidMount() {
         this.props.dispatch(messageActions.loadMessages(this.state.userId));
+
+
     }
 
     render() {
@@ -65,6 +68,8 @@ class MessageList extends Component {
             <div className='container'>
                 {inner}
                 <MessageAdd
+                    toUserId={this.props.location.state.toUserId}
+                    toUserName={this.props.location.state.toUserName}
                     userId={this.state.userId} >
                 </MessageAdd>
             </div>
@@ -72,7 +77,7 @@ class MessageList extends Component {
     }
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
     return {
         messages: state.messages,
         message: state.message,
@@ -80,4 +85,4 @@ function mapStateToProps(state, ownProps) {
     };
 }
 
-export default connect(mapStateToProps)(MessageList);
+export default connect(mapStateToProps)(withRouter(MessageList));
