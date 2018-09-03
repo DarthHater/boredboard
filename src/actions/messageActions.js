@@ -98,7 +98,7 @@ function stubMessage(response, message) {
         UserId: message.Message.UserId,
         Title: message.Message.Title,
         PostedAt: new Date(Date.now()),
-        UserName: response.username
+        UserName: response.Message.UserName
     };
 }
 
