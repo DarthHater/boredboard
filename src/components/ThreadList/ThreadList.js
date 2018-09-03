@@ -12,6 +12,7 @@ import { threadActions } from '../../actions';
 import * as permissions from '../../constants/permissions';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import * as debounce from '../../helpers/debounce';
 
 class ThreadList extends Component {
 
@@ -22,13 +23,12 @@ class ThreadList extends Component {
             userId: auth.getUserId(),
             canDeleteThreads: auth.userHasPermission(permissions.deleteThread),
             loading: false,
-            scrollPosition: 0,
-            rendered: false
+            scrollPosition: 0
         }
     }
 
     componentDidMount() {
-        window.addEventListener('scroll', this.throttle(this.handleScroll, 500));
+        window.addEventListener('scroll', debounce.debounce(this.handleScroll, 250));
         if (this.props.threads.length == 0) {
             this.props.dispatch(threadActions.loadThreads(new Date().valueOf()));
         }
@@ -42,39 +42,32 @@ class ThreadList extends Component {
         this.props.dispatch(threadActions.deleteThread(id));
     }
 
-    throttle(fn, wait) {
-        var time = Date.now();
-        return function() {
-            if ((time + wait - Date.now()) < 0) {
-            fn();
-            time = Date.now();
-            }
-        }
-    }
-
     handleScroll = (e) => {
         this.state.scrollPosition = document.getElementsByTagName('html')[0].scrollTop;
         let scrollBottom = document.body.clientHeight;
-        let loading = this.state.loading;
         let height = (this.state.scrollPosition + window.innerHeight);
 
         if (
             scrollBottom - height < 300 
-            && !loading
+            && !this.state.loading
             && this.props.threads.length >= 20
             && !this.props.threadsNull
         ) {
             this.state.loading = true;
-            let thread = this.props.threads[0];
-            let date = new Date(thread.PostedAt).valueOf();
-            this.props.dispatch(threadActions.loadThreads(date));
+            this.props.dispatch(
+                threadActions.loadThreads(
+                    new Date(
+                        this.props.threads[0].PostedAt
+                    )
+                    .valueOf()
+                )
+            );
             this.state.loading = false;
         }
     }
 
     componentDidUpdate(prevProps) {
-        this.state.rendered = true;
-        document.body.scrollTo(0, this.state.scrollPosition);
+        window.scrollTo(0, this.state.scrollPosition);
     }
 
     render() {
