@@ -13,9 +13,14 @@ function login(data) {
         return authService
             .login(data)
             .then(user => {
+                if (!user || !user.response) {
+                    return dispatch(loginFailure());
+                }
+
                 if (user.response.status == 200) {
                     return dispatch(loginSuccess(user));
                 }
+
                 return dispatch(loginFailure(user.response));
             })
             .catch(error => {
