@@ -12,7 +12,7 @@ import { threadActions } from '../../actions';
 import * as permissions from '../../constants/permissions';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import * as debounce from '../../helpers/debounce';
+import { debounce } from '../../helpers/debounce';
 
 class ThreadList extends Component {
 
@@ -29,7 +29,7 @@ class ThreadList extends Component {
 
     componentDidMount() {
         this.props.dispatch(threadActions.enterThreadList(false));
-        window.addEventListener('scroll', debounce.debounce(this.handleScroll, 250));
+        window.addEventListener('scroll', debounce(this.handleScroll, 250));
         if (this.props.threads.length == 0) {
             this.props.dispatch(threadActions.loadThreads(new Date().valueOf()));
         }
