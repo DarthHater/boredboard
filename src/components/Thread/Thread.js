@@ -24,10 +24,6 @@ class Thread extends Component {
         this.props.dispatch(threadActions.loadThread(id));
     }
 
-    componentDidMount = () => {
-        
-    }
-
     componentWillUnmount() {
         this.props.dispatch(threadActions.exitThreadView());
         this.props.dispatch(threadActions.exitPostsView());
