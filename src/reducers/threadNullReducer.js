@@ -5,6 +5,8 @@ export default function threadsReducer(state = initialState.noMasThreads, action
     switch (action.type) {
         case threadConstants.NO_MORE_THREADS:
             return action.noMasThreads;
+        case threadConstants.ENTER_THREAD_LIST:
+            return action.noMasThreads;
         default:
             return state;
     }

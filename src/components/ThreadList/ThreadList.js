@@ -28,6 +28,7 @@ class ThreadList extends Component {
     }
 
     componentDidMount() {
+        this.props.dispatch(threadActions.enterThreadList(false));
         window.addEventListener('scroll', debounce.debounce(this.handleScroll, 250));
         if (this.props.threads.length == 0) {
             this.props.dispatch(threadActions.loadThreads(new Date().valueOf()));
@@ -36,6 +37,7 @@ class ThreadList extends Component {
 
     componentWillUnmount () {
         window.removeEventListener('scroll', this.handleScroll);
+        this.props.dispatch(threadActions.exitThreadList());
     }
 
     deleteThread = id => {

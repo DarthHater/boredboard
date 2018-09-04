@@ -8,6 +8,8 @@ export const threadActions = {
     loadPosts,
     loadThread,
     loadThreads,
+    exitThreadList,
+    enterThreadList,
     recievePost
 };
 
@@ -56,6 +58,18 @@ function addPost(threadId, userId, post) {
             }).catch(error => {
                 throw (error);
             });
+    }
+}
+
+function enterThreadList(noMasThreads) {
+    return function (dispatch) {
+        return dispatch(enterThreadListSuccess(noMasThreads));
+    }
+}
+
+function exitThreadList() {
+    return function (dispatch) {
+        return dispatch(exitThreadListSuccess());
     }
 }
 
@@ -138,4 +152,12 @@ function addThreadSuccess(thread) {
 
 function recievePostSuccess(post) {
     return { type: threadConstants.RECIEVE_POST, post };
+}
+
+function enterThreadListSuccess(noMasThreads) {
+    return { type: threadConstants.ENTER_THREAD_LIST, noMasThreads };
+}
+
+function exitThreadListSuccess() {
+    return { type: threadConstants.EXIT_THREAD_LIST };
 }
