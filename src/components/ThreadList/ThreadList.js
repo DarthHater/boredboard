@@ -29,7 +29,7 @@ class ThreadList extends Component {
 
     componentDidMount() {
         this.props.dispatch(threadActions.enterThreadList(false));
-        window.addEventListener('scroll', debounce(this.handleScroll, 250));
+        window.addEventListener('scroll', debounce(this.handleScroll, 250), { passive: true });
         if (this.props.threads.length == 0) {
             this.props.dispatch(threadActions.loadThreads(new Date().valueOf()));
         }
