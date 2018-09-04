@@ -10,6 +10,9 @@ export const threadActions = {
     loadThreads,
     exitThreadList,
     enterThreadList,
+    enterThreadView,
+    exitThreadView,
+    exitPostsView,
     recievePost
 };
 
@@ -64,6 +67,24 @@ function addPost(threadId, userId, post) {
 function enterThreadList(noMasThreads) {
     return function (dispatch) {
         return dispatch(enterThreadListSuccess(noMasThreads));
+    }
+}
+
+function exitThreadView() {
+    return function (dispatch) {
+        return dispatch(exitThreadViewSuccess());
+    }
+}
+
+function exitPostsView() {
+    return function (dispatch) {
+        return dispatch(exitPostsViewSuccess());
+    }
+}
+
+function enterThreadView() {
+    return function (dispatch) {
+        return dispatch(enterThreadViewSuccess());
     }
 }
 
@@ -160,4 +181,16 @@ function enterThreadListSuccess(noMasThreads) {
 
 function exitThreadListSuccess() {
     return { type: threadConstants.EXIT_THREAD_LIST };
+}
+
+function enterThreadViewSuccess() {
+    return { type: threadConstants.ENTER_THREAD_VIEW };
+}
+
+function exitThreadViewSuccess() {
+    return { type: threadConstants.EXIT_THREAD_VIEW };
+}
+
+function exitPostsViewSuccess() {
+    return { type: threadConstants.EXIT_POST_VIEW };
 }

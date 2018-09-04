@@ -28,6 +28,11 @@ class Thread extends Component {
         
     }
 
+    componentWillUnmount() {
+        this.props.dispatch(threadActions.exitThreadView());
+        this.props.dispatch(threadActions.exitPostsView());
+    }
+
     render() {
         return (
             <div
