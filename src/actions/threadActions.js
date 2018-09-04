@@ -20,10 +20,12 @@ function loadThreads(since) {
     return function (dispatch) {
         return ThreadService.getAllThreads(since)
             .then(threads => {
-                if (!threads.response) {
+                if (typeof threads.response === "undefined") {
                     dispatch(loadThreadsSuccess(threads));
                 } else {
-                    dispatch(noMoreThreads(true));
+                    if (threads.response.status == 404) {
+                        dispatch(noMoreThreads(true));
+                    }
                 }
             }).catch(error => {
                 throw (error);
