@@ -23,7 +23,7 @@ class App extends Component {
                 <ConnectedRouter history={this.props.history}>
                     <div>
                         <NavigationBar />
-                        <main>
+                        <main style={{ marginTop: '74px'}}>
                             <Switch>
                                 <Route
                                     exact={true}

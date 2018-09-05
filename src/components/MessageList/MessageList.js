@@ -29,6 +29,14 @@ class MessageList extends Component {
     }
 
     render() {
+        let toUserId, toUserName;
+        const { state } = this.props.location;
+
+        if (state) {
+            toUserId = state.toUserId;
+            toUserName = state.toUserName;
+        }
+
         let inner;
         if (!this.props.messages) {
             inner = <div>No Messages</div>;
@@ -66,8 +74,8 @@ class MessageList extends Component {
             <div className='container'>
                 {inner}
                 <MessageAdd
-                    toUserId={this.props.location.state.toUserId}
-                    toUserName={this.props.location.state.toUserName}
+                    toUserId={toUserId}
+                    toUserName={toUserName}
                     userId={this.state.userId} >
                 </MessageAdd>
             </div>
