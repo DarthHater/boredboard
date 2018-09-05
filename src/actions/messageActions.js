@@ -83,12 +83,12 @@ function recieveMessagePost(post) {
 
 function stubMessagePost(response, messageId, userId, post) {
     return {
-        Id: response.id,
+        Id: response.Id,
         MessageId: messageId,
         UserId: userId,
         Body: post,
         PostedAt: new Date(Date.now()),
-        UserName: response.username
+        UserName: response.Username
     };
 }
 

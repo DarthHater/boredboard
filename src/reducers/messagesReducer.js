@@ -1,10 +1,10 @@
 import { messageConstants } from '../constants/message-types';
 import initialState from './initialState';
 
-export default function messagessReducer(state = initialState.messages, action) {
+export default function messagesReducer(state = initialState.messages, action) {
     switch (action.type) {
         case messageConstants.LOAD_MESSAGES_SUCCESS:
-            return action.messages
+            return action ? action.messages : [];
         case messageConstants.ADD_MESSAGE:
             let newAddMessage = insertItem(state, action.message);
             return newAddMessage;
