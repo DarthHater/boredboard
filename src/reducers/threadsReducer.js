@@ -4,12 +4,19 @@ import initialState from './initialState';
 export default function threadsReducer(state = initialState.threads, action) {
     switch (action.type) {
         case threadConstants.LOAD_THREADS_SUCCESS:
-            return action.threads
+            return [
+                ...state,
+                ...action.threads
+            ].sort((a, b) => {
+                return new Date(a.PostedAt) - new Date(b.PostedAt)
+            });
         case threadConstants.DELETE_THREAD:
             return state.filter(thread => thread.Id !== action.threadId);
         case threadConstants.ADD_THREAD:
             let newAddThread = insertItem(state, action.thread);
             return newAddThread;
+        case threadConstants.EXIT_THREAD_LIST:
+            return [];
         default:
             return state;
     }

@@ -6,5 +6,6 @@ export default {
     message_posts: [],
     posts: [],
     user: {},
-    message_users: []
+    message_users: [],
+    noMasThreads: false
 }

@@ -7,9 +7,11 @@ import message from './messageReducer';
 import messages from './messagesReducer';
 import message_posts from './messagePostsReducer';
 import message_users from './messageUsersReducer';
+import threadsNull from './threadNullReducer';
 
 const rootReducer = combineReducers({
     threads,
+    threadsNull,
     thread,
     posts,
     message,

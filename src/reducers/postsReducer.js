@@ -12,6 +12,8 @@ export default function postsReducer(state = initialState.posts, action) {
             let obj = JSON.parse(action.post);
             let newRecievePost = insertItem(state, obj);
             return newRecievePost;
+        case threadConstants.EXIT_POST_VIEW:
+            return [];
         default:
             return state;
     }

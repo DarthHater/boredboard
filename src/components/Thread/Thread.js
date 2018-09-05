@@ -23,9 +23,21 @@ class Thread extends Component {
         this.props.dispatch(threadActions.loadThread(id));
     }
 
+    componentWillUnmount() {
+        this.props.dispatch(threadActions.exitThreadView());
+        this.props.dispatch(threadActions.exitPostsView());
+    }
+
     render() {
         return (
-            <div className='container'>
+            <div
+                style= {{
+                    paddingLeft: '20px',
+                    paddingRight: '20px',
+                    marginTop: 64,
+                    overflowY: 'auto',
+                }}
+            >
                 <header>
                     <h3 className="backToIt">
                         <Link to={`/`}>Back to it</Link>
