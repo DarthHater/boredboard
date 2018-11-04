@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import config from 'react-global-configuration';
 import { threadActions } from '../../actions/index';
 import * as auth from '../../auth/authentication';
+import Button from '@material-ui/core/Button';
 
 class Thread extends Component {
 
@@ -49,13 +50,13 @@ class Thread extends Component {
                 </header>
                 <ThreadPost
                     threadId={ this.state.threadId }
-                    >
+                >
                 </ThreadPost>
-                <ThreadReply 
-                    userId={this.state.userId} 
+                <ThreadReply
+                    userId={this.state.userId}
                     threadId={this.props.thread.Id}
                     value=''
-                    >
+                >
                 </ThreadReply>
             </div>
         );

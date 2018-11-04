@@ -1,5 +1,6 @@
 import ThreadService from '../services/ThreadService';
 import { threadConstants } from '../constants/action-types';
+import directions from '../constants/directions';
 
 export const threadActions = {
     addPost,
@@ -44,11 +45,16 @@ function loadThread(threadId) {
     };
 }
 
-function loadPosts(threadId) {
+function loadPosts(threadId, since = null, direction = null) {
     return function (dispatch) {
-        return ThreadService.getPosts(threadId)
+        return ThreadService.getPosts(threadId, since, direction)
             .then(posts => {
-                dispatch(loadPostsSuccess(posts));
+                if (direction === directions.UP) {
+                    return dispatch(loadPostsBeforeSuccess(posts));
+                } else if (direction === directions.DOWN) {
+                    return dispatch(loadPostsAfterSuccess(posts));
+                }
+                return dispatch(loadPostsSuccess(posts));
             }).catch(error => {
                 throw (error);
             });
@@ -159,6 +165,14 @@ function loadThreadSuccess(thread) {
 
 function loadPostsSuccess(posts) {
     return { type: threadConstants.LOAD_POSTS_SUCCESS, posts };
+}
+
+function loadPostsBeforeSuccess(posts) {
+    return { type: threadConstants.LOAD_POSTS_BEFORE_SUCCESS, posts };
+}
+
+function loadPostsAfterSuccess(posts) {
+    return { type: threadConstants.LOAD_POSTS_AFTER_SUCCESS, posts };
 }
 
 function addPostSuccess(post) {

@@ -1,0 +1,9 @@
+.posts {
+    height: 50vh;
+    max-height: 50vh;
+    overflow-y: scroll;
+
+    .postsListUl {
+        padding-top: 5px;
+    }
+}

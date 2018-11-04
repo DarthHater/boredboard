@@ -43,11 +43,19 @@ class ThreadService {
         });
     }
 
-    getPosts(threadId) {
+    getPosts(threadId, since, direction) {
         let baseUrl = config.get('API_ROOT');
         const headers = getRequestHeaders();
 
-        return axios.get(`${baseUrl}/posts/${threadId}`, {
+        let url = `${baseUrl}/posts/${threadId}`;
+        if (since !== null) {
+            url += "/" + since;
+        }
+        if (direction !== null) {
+            url += "?direction=" + direction;
+        }
+
+        return axios.get(url, {
             headers: headers
         }).then(response => {
             return response.data;
