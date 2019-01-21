@@ -2,10 +2,10 @@
     white-space: pre-wrap;
 }
 
-ul {
+ul.postListsUl {
     list-style: none;
 }
 
-li:nth-child(odd) { 
+li.post:nth-child(odd) { 
     background: light-grey; 
 }
