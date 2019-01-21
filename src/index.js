@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import config from './config'
-import store from './store/index';
+import store, { history } from './store/index';
 import { threadActions } from './actions/threadActions';
 import './App.scss';
 
@@ -12,7 +12,7 @@ window.store = store;
 
 render(
     <Provider store={store}>
-        <App />
+        <App history={history} />
     </Provider>,
     document.getElementById('app')
 );

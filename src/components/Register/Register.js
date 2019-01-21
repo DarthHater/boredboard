@@ -23,8 +23,8 @@ class Register extends Component {
         this.state = {
             submitted: false,
             username: '',
-            emailaddress: '', 
-            userpassword: ''
+            emailaddress: '',
+            password: ''
         };
 
         this.handleUserNameChange = this.handleUserNameChange.bind(this);
@@ -40,7 +40,7 @@ class Register extends Component {
         let body = JSON.stringify({
             username: this.state.username,
             emailaddress: this.state.emailaddress,
-            userpassword: this.state.userpassword
+            password: this.state.password
         });
 
         const {dispatch} = this.props;
@@ -57,7 +57,7 @@ class Register extends Component {
     };
 
     handlePasswordChange = event => {
-        this.setState({userpassword: event.target.value});
+        this.setState({password: event.target.value});
     };
 
     render() {
@@ -70,7 +70,7 @@ class Register extends Component {
                     ref="form"
                     onSubmit={this.handleSubmit}
                     onError={errors => console.log(errors)}
-                >                    
+                >
                     <TextValidator
                         label="Username"
                         onChange={this.handleUserNameChange}
@@ -98,7 +98,7 @@ class Register extends Component {
                         onChange={this.handlePasswordChange}
                         name="password"
                         margin="normal"
-                        value={this.state.userpassword}
+                        value={this.state.password}
                         className={classes.textField}
                         validators={['required']}
                         errorMessages={['this field is required']}

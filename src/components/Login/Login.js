@@ -1,20 +1,21 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import {connect} from 'react-redux';
-import {userActions} from '../../actions';
+import { connect } from 'react-redux';
+import { userActions } from '../../actions';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 const styles = theme => ({
     textField: {
-      marginLeft: theme.spacing.unit,
-      marginRight: theme.spacing.unit,
-      width: 200,
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        width: 200,
     }
-  });
+});
 
 class Login extends Component {
     constructor(props) {
@@ -30,27 +31,25 @@ class Login extends Component {
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
     }
 
-    handleSubmit = event => {
+    handleSubmit = async (event) => {
         event.preventDefault();
 
-        this.setState({submitted: true});
+        this.setState({ submitted: true });
 
         let body = JSON.stringify({
             username: this.state.username,
             password: this.state.password
         });
 
-        const {dispatch} = this.props;
-
-        dispatch(userActions.login(body));
+        this.props.actions.login(body);
     };
 
     handleEmailChange = event => {
-        this.setState({username: event.target.value});
+        this.setState({ username: event.target.value });
     };
 
     handlePasswordChange = event => {
-        this.setState({password: event.target.value});
+        this.setState({ password: event.target.value });
     };
 
     render() {
@@ -60,10 +59,14 @@ class Login extends Component {
                 <h3>Welcome to VLV!</h3>
                 <img src="http://i.imgur.com/yTLWX.jpg" />
                 <p> Enter your credentials to login and start shit posting </p>
+                {this.props.user.error &&
+                    <FormHelperText error>{this.props.user.error}</FormHelperText>
+                }
                 <ValidatorForm
                     ref="form"
                     onSubmit={this.handleSubmit}
                     onError={errors => console.log(errors)}
+                    error
                 >
                     <TextValidator
                         label="Username"
@@ -109,4 +112,10 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(withStyles(styles)(Login));
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(userActions, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Login));

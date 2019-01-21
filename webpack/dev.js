@@ -7,8 +7,9 @@ module.exports = merge(common, {
         host: '0.0.0.0',
         port: 8090,
         contentBase: './dist',
-        historyApiFallback: {
-            index: 'index.html'
-        }
+        historyApiFallback: true
+    },
+    output: {
+        publicPath: '/'
     }
 });
