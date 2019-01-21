@@ -1,3 +1,11 @@
 .post {
     white-space: pre-wrap;
 }
+
+ul {
+    list-style: none;
+}
+
+li:nth-child(odd) { 
+    background: light-grey; 
+}
