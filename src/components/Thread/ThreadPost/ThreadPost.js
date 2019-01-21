@@ -5,6 +5,7 @@ import WebSocket from 'react-websocket';
 import { connect } from 'react-redux';
 import { threadActions } from '../../../actions/index';
 import config from 'react-global-configuration';
+import parser from 'bbcode-to-react';
 
 class ThreadPost extends Component {
 
@@ -28,7 +29,7 @@ class ThreadPost extends Component {
         return (
             <div className="posts">
                 <ul className="postsListUl">
-                {this.props.posts.map(post => {
+                    {this.props.posts.map(post => {
                         return (
                             <li key={post.Id} className="post">
                                 <p>
@@ -38,7 +39,7 @@ class ThreadPost extends Component {
                                     &nbsp;on <Timestamp time={post.PostedAt} format="full" />
                                 </p>
                                 <p>
-                                    {post.Body}
+                                    {parser.toReact(post.Body)}
                                 </p>
                             </li>
                         )

@@ -13,4 +13,4 @@ if (hostname == 'vivalavinyl-webapp.herokuapp.com') {
     wsHost = 'ws://localhost:8000/ws';
 }
 
-config.set({ API_ROOT: backendHost, WS_ROOT: wsHost });
+config.set({ API_ROOT: 'https://vivalavinyl-service.herokuapp.com', WS_ROOT: wsHost });
