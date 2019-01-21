@@ -9,8 +9,7 @@ if (hostname == 'vivalavinyl-webapp.herokuapp.com') {
     backendHost = 'https://vivalavinyl-service.herokuapp.com';
     wsHost = 'wss://vivalavinyl-service.herokuapp.com/ws';
 } else {
-    // backendHost = 'http://localhost:8000';
-    backendHost = 'https://vivalavinyl-service.herokuapp.com';
+    backendHost = 'http://localhost:8000';
     wsHost = 'ws://localhost:8000/ws';
 }
 

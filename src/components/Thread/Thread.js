@@ -45,7 +45,7 @@ class Thread extends Component {
                     <h1>
                         {this.props.thread.Title }
                     </h1>
-                    by: <Link to={`/user/${this.props.thread.UserId}`}>{this.props.thread.UserName }</Link> on <Timestamp time={this.props.thread.PostedAt} format="full" />
+                    <h4>Created by <Link to={`/user/${this.props.thread.UserId}`}>{this.props.thread.UserName }</Link> on <Timestamp time={this.props.thread.PostedAt} format="full" /></h4>
                 </header>
                 <ThreadPost
                     threadId={ this.state.threadId }

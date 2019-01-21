@@ -1,10 +1,26 @@
 import React from 'react';
-import parser, { Tag } from 'bbcode-to-react';
+import { Tag } from 'bbcode-to-react';
+import { getLocation } from '../../../utilities/utilities';
 
 class YoutubeTag extends Tag {
     toReact() {
+        let href = this.getContent(true);
+
+        let { host } = getLocation(href);
+
+        // Parse regular and shortened youtube URLs into the  youtube.com/embed/####### style so they work in browser and mobile
+        if (host === "youtube.com" || host === "www.youtube.com" || host === "youtu.be") {
+            if (host === "youtu.be") {
+                href = href.replace("youtu.be/", "youtube.com/embed/");
+            } else {
+                href = href.replace("watch?v=", "embed/");
+            }
+            // disable autoplay
+            href = href.replace("autoplay=", "no=");
+        }
+
         const attributes = {
-            src: this.getContent(true),
+            src: href,
             width: this.params.width || 420,
             height: this.params.height || 315,
         };
@@ -18,4 +34,4 @@ class YoutubeTag extends Tag {
     }
 }
 
-parser.registerTag('youtube', YoutubeTag);
+export default YoutubeTag;

@@ -57,7 +57,9 @@ class ThreadReply extends Component {
                     value={this.state.value}
                     validators={['required']}
                     errorMessages={['this field is required']}
+                    style={{width: "95%"}}
                 />
+                <br></br>
                 <Button
                     variant="contained"
                     color="primary"
