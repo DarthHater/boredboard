@@ -61,7 +61,7 @@ class ThreadList extends Component {
             this.props.dispatch(
                 threadActions.loadThreads(
                     new Date(
-                        this.props.threads[0].PostedAt
+                        this.props.threads[0].LastPostedAt
                     )
                     .valueOf()
                 )
@@ -122,7 +122,7 @@ class ThreadList extends Component {
                                             <Typography component="p">
                                                 by: <Link to={`/user/${thread.UserId}`}>
                                                     {thread.UserName}
-                                                </Link> on <Timestamp time={thread.PostedAt} format="full" />
+                                                </Link> on <Timestamp time={thread.PostedAt} format="full" />, last post on <Timestamp time={thread.LastPostedAt} format="full" />
                                             </Typography>
                                         </Grid>
                                         {this.state.canDeleteThreads && (
