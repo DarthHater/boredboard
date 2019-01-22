@@ -17,7 +17,8 @@ class Thread extends Component {
         let { id } = props.match.params;
         this.state = {
             threadId: id,
-            userId: auth.getUserId()
+            userId: auth.getUserId(),
+            postBody: "",
         }
 
         this.props.dispatch(threadActions.loadThread(id));
@@ -26,6 +27,10 @@ class Thread extends Component {
     componentWillUnmount() {
         this.props.dispatch(threadActions.exitThreadView());
         this.props.dispatch(threadActions.exitPostsView());
+    }
+
+    quotePostSendToThreadReply = (body) => {
+        this.setState({postBody: body});
     }
 
     render() {
@@ -49,12 +54,13 @@ class Thread extends Component {
                 </header>
                 <ThreadPost
                     threadId={ this.state.threadId }
+                    quotePostCallback={this.quotePostSendToThreadReply}
                     >
                 </ThreadPost>
                 <ThreadReply 
                     userId={this.state.userId} 
                     threadId={this.props.thread.Id}
-                    value=''
+                    value={this.state.postBody}
                     >
                 </ThreadReply>
             </div>

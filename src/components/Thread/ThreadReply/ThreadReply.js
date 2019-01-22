@@ -21,7 +21,7 @@ class ThreadReply extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: ''
+            value: props.value,
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -37,6 +37,12 @@ class ThreadReply extends Component {
         this.setState({ value: '' });
 
         event.preventDefault();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.value !== prevProps.value) {
+            this.setState({value: this.props.value});
+        }
     }
 
     render() {

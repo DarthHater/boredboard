@@ -4,13 +4,30 @@ $black: hsl(200, 40, 10);
     white-space: pre-wrap;
 }
 
+.post.header {
+    background: lightgrey;
+}
+
+.post.header.info {
+    padding-left: 10px;
+    text-align: left;
+}
+
+.post.body {
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: left;
+}
+
+.post.header.controls {
+    padding-right: 10px;
+    text-align: right;
+}
+
 ul.postsListUl {
     list-style: none;
     padding-left: 0px;
-}
-
-.post:nth-child(odd) {
-    background: #efefef;
 }
 
 blockquote {
