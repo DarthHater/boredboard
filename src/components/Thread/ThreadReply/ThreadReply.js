@@ -41,9 +41,15 @@ class ThreadReply extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.value !== prevProps.value) {
-            this.setState({
-                value: this.state.value + "\n\n" + this.props.value
-            });
+            if (this.state.value == "") {
+                this.setState({
+                    value: this.props.value
+                });
+            } else {
+                this.setState({
+                    value: `${this.state.value}\n\n${this.props.value}`
+                });
+            }
         }
     }
 
