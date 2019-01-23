@@ -76,8 +76,6 @@ class ThreadPost extends Component {
     };
 
     render() {
-        const canEditAllPosts = auth.userHasPermission(permissions.canEditPost);
-
         return (
             <div className="posts">
                 {this.props.posts.map(post => {
@@ -103,7 +101,7 @@ class ThreadPost extends Component {
                                 >
                                     » Quote
                                 </Button>
-                                {(canEditAllPosts || (auth.checkUser(post.UserId) && canEditPost(post))) &&
+                                {(this.state.userCanEditPost || (auth.checkUser(post.UserId) && canEditPost(post))) &&
                                     <Button
                                         style={styles.button}
                                         size="small"
@@ -144,7 +142,7 @@ class ThreadPost extends Component {
     }
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
     return {
         posts: state.posts
     };
