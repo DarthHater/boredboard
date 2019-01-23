@@ -1,12 +1,13 @@
 import React from 'react';
 import { Tag } from 'bbcode-to-react';
 import { getLocation } from '../../../utilities/utilities';
+import parse from 'url-parse';
 
 class YoutubeTag extends Tag {
     toReact() {
         let href = this.getContent(true);
 
-        let { host } = getLocation(href);
+        let { host } = parse(href, {});
 
         // Parse regular and shortened youtube URLs into the  youtube.com/embed/####### style so they work in browser and mobile
         if (host === "youtube.com" || host === "www.youtube.com" || host === "youtu.be") {
