@@ -7,7 +7,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import TextSms from '@material-ui/icons/TextSms';
+import Textsms from '@material-ui/icons/Textsms';
 import Person from '@material-ui/icons/Person';
 import SentimentDissatisfied from '@material-ui/icons/SentimentDissatisfied';
 import DirectionsRun from '@material-ui/icons/DirectionsRun';
@@ -104,7 +104,7 @@ class NavigationBar extends Component {
                     <List>
                         <ListItem component={Link} onClick={this.navToRoute("/messages")}>
                             <ListItemIcon>
-                                <TextSms></TextSms>
+                                <Textsms></Textsms>
                             </ListItemIcon>
                             <ListItemText primary="Messages" />
                         </ListItem>
