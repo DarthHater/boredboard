@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import orange from '@material-ui/core/colors/orange';
 import blue from '@material-ui/core/colors/blue';
 import { connect } from 'react-redux';
-import { threadActions } from '../../../actions/index';
+import { messageActions } from '../../../actions/index';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
 const styles = {
@@ -16,12 +16,12 @@ const styles = {
     },
 };
 
-class ThreadReply extends Component {
+class MessageReply extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            value: props.value,
+            value: ''
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,25 +32,11 @@ class ThreadReply extends Component {
     }
 
     handleSubmit(event) {
-        this.props.dispatch(threadActions.addPost(this.props.threadId, this.props.userId, this.state.value));
+        this.props.dispatch(messageActions.addMessagePost(this.props.messageId, this.props.userId, this.state.value));
 
         this.setState({ value: '' });
 
         event.preventDefault();
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.value !== prevProps.value) {
-            if (this.state.value == "") {
-                this.setState({
-                    value: this.props.value
-                });
-            } else {
-                this.setState({
-                    value: `${this.state.value}\n\n${this.props.value}`
-                });
-            }
-        }
     }
 
     render() {
@@ -71,9 +57,7 @@ class ThreadReply extends Component {
                     value={this.state.value}
                     validators={['required']}
                     errorMessages={['this field is required']}
-                    style={{ width: "95%" }}
                 />
-                <br></br>
                 <Button
                     variant="contained"
                     color="primary"
@@ -86,8 +70,8 @@ class ThreadReply extends Component {
 
 function mapStateToProps(state, ownProps) {
     return {
-        post: state.post
+        message_post: state.message_post
     };
 }
 
-export default connect(mapStateToProps)(ThreadReply);
+export default connect(mapStateToProps)(MessageReply);

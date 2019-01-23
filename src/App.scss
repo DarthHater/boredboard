@@ -1,61 +1,35 @@
-*,
-*::before,
-*::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: inherit;
+$black: hsl(200, 40, 10);
+
+.post.header {
+    white-space: pre-wrap;
+    background: lightgrey;
 }
 
-html {
-    box-sizing: border-box;
+.post.header.info {
+    white-space: pre-wrap;
+    padding-left: 10px;
+    text-align: left;
 }
 
-body {
-    background: #f1f1f1;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+.post.body {
+    white-space: pre-wrap;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: left;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
+.post.header.controls {
+    text-align: right;
 }
 
-.post {
-    transition: opacity 0.5s;
-    opacity: 1;
+ul.postsListUl {
+    list-style: none;
+    padding-left: 0px;
 }
 
-ul {
-    list-style-type: none;
-}
-
-.threadListUl h3, .threadListUl p { display: inline; }
-
-.threadListUl li {
-    padding: 2px;
-}
-
-.postsListUl {
-    padding: 10px;
-}
-
-.postsListUl li {
-    margin: 2px;
-}
-
-.postsListUl p {
-    margin: 5px;
-}
-
-.loginFormDiv {
-    padding: 10px;
-    text-align: center;
-}
-
-.loginFormDiv h3, h4, p {
-    padding: 10px;
-}
-
-.backToIt {
-    padding: 10px;
+blockquote {
+    position: relative;
+    padding-left: 1em;
+    border-left: 0.2em solid lighten($black, 40%);
 }

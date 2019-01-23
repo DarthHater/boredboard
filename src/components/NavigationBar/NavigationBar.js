@@ -42,7 +42,7 @@ class NavigationBar extends Component {
         const { classes } = this.props;
         return (
             <div className={classes.root}>
-                <AppBar position="static">
+                <AppBar position="fixed">
                     <Toolbar>
                         <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
                             <MenuIcon />
@@ -55,7 +55,7 @@ class NavigationBar extends Component {
                                 <Button onClick={this.navToRoute("/")} className={classes.navButton} color="inherit">
                                     Threads
                                 </Button>
-                                <Button onClick={this.navToRoute("/")} className={classes.navButton} color="inherit">
+                                <Button onClick={this.navToRoute("/messages")} className={classes.navButton} color="inherit">
                                     Message
                                 </Button>
                                 <Button onClick={this.navToRoute(`/user/${getUserId()}`)} className={classes.navButton} color="inherit">
@@ -64,7 +64,7 @@ class NavigationBar extends Component {
                                 <Button onClick={this.logOut} variant="outlined" color="inherit">Logout {getUsername()}</Button>
                             </Fragment>
                             ) :
-                            (<Button variant="outlined" color="inherit">Login</Button>)
+                            (<Button onClick={this.navToRoute(`/login`)} variant="outlined" color="inherit">Login</Button>)
                         }
                     </Toolbar>
                 </AppBar>

@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import { Grid } from '@material-ui/core';
 import {connect} from 'react-redux';
 import {userActions} from '../../actions';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
@@ -23,8 +23,8 @@ class Register extends Component {
         this.state = {
             submitted: false,
             username: '',
-            emailaddress: '', 
-            userpassword: ''
+            emailaddress: '',
+            password: ''
         };
 
         this.handleUserNameChange = this.handleUserNameChange.bind(this);
@@ -40,7 +40,7 @@ class Register extends Component {
         let body = JSON.stringify({
             username: this.state.username,
             emailaddress: this.state.emailaddress,
-            userpassword: this.state.userpassword
+            password: this.state.password
         });
 
         const {dispatch} = this.props;
@@ -57,60 +57,66 @@ class Register extends Component {
     };
 
     handlePasswordChange = event => {
-        this.setState({userpassword: event.target.value});
+        this.setState({password: event.target.value});
     };
 
     render() {
         const { classes } = this.props;
         return (
-            <div>
-                <h3>Welcome to VLV!</h3>
-                <p>Enter your details to register as a new user</p>
-                <ValidatorForm
-                    ref="form"
-                    onSubmit={this.handleSubmit}
-                    onError={errors => console.log(errors)}
-                >                    
-                    <TextValidator
-                        label="Username"
-                        onChange={this.handleUserNameChange}
-                        name="username"
-                        margin="normal"
-                        value={this.state.username}
-                        className={classes.textField}
-                        validators={['required']}
-                        errorMessages={['this field is required']}
-                    />
-                    <br />
-                    <TextValidator
-                        label="Email Address"
-                        onChange={this.handleEmailChange}
-                        name="emailaddress"
-                        margin="normal"
-                        value={this.state.emailaddress}
-                        className={classes.textField}
-                        validators={['required', 'isEmail']}
-                        errorMessages={['this field is required', 'email is not valid']}
-                    />
-                    <br />
-                    <TextValidator
-                        label="Password"
-                        onChange={this.handlePasswordChange}
-                        name="password"
-                        margin="normal"
-                        value={this.state.userpassword}
-                        className={classes.textField}
-                        validators={['required']}
-                        errorMessages={['this field is required']}
-                    />
-                    <br />
-                    <Button type="submit">Register</Button>
-                </ValidatorForm>
-                <h4>Have an account already?</h4>
-                <p>
-                    Go <Link to="/login">here</Link> to login.
-                </p>
-            </div>
+            <Grid container spacing={24}>
+                <Grid item xs={12} sm={12} style={{textAlign: 'center'}}>
+                    <h2>Welcome to VLV!</h2>
+                </Grid>
+                <Grid item xs={12} sm={6} style={{textAlign: 'center'}}>
+                    <h3>Enter your details to register as a new user</h3>
+                    <ValidatorForm
+                        ref="form"
+                        onSubmit={this.handleSubmit}
+                        onError={errors => console.log(errors)}
+                    >
+                        <TextValidator
+                            label="Username"
+                            onChange={this.handleUserNameChange}
+                            name="username"
+                            margin="normal"
+                            value={this.state.username}
+                            className={classes.textField}
+                            validators={['required']}
+                            errorMessages={['this field is required']}
+                        />
+                        <br />
+                        <TextValidator
+                            label="Email Address"
+                            onChange={this.handleEmailChange}
+                            name="emailaddress"
+                            margin="normal"
+                            value={this.state.emailaddress}
+                            className={classes.textField}
+                            validators={['required', 'isEmail']}
+                            errorMessages={['this field is required', 'email is not valid']}
+                        />
+                        <br />
+                        <TextValidator
+                            label="Password"
+                            onChange={this.handlePasswordChange}
+                            name="password"
+                            margin="normal"
+                            value={this.state.password}
+                            className={classes.textField}
+                            validators={['required']}
+                            errorMessages={['this field is required']}
+                        />
+                        <br />
+                        <Button variant="contained" color="primary" type="submit">Register</Button>
+                    </ValidatorForm>
+                </Grid>
+                <Grid item xs={12} sm={6} style={{textAlign: 'center'}}>
+                    <h3>Have an account already?</h3>
+                    <p>
+                        Go <Link to="/login">here</Link> to login.
+                    </p>
+                </Grid>
+            </Grid>
         );
     }
 }

@@ -15,6 +15,8 @@ export default function postsReducer(state = initialState.posts, action) {
             let obj = JSON.parse(action.post);
             let newRecievePost = insertItem(state, obj);
             return newRecievePost;
+        case threadConstants.EXIT_POST_VIEW:
+            return [];
         default:
             return state;
     }
@@ -29,9 +31,14 @@ function editItem(array, action) {
 }
 
 function insertItem(array, action) {
+    if (typeof action.Id == "undefined") {
+        // Short circuit function in case we don't have the right info to add a post
+        return array;
+    }
+
     let newArray = array.slice();
     let index = -1;
-    
+
     for(var i = 0; i < newArray.length; i++) {
       if(newArray[i].Id === action.Id) {
         index = i;
@@ -40,7 +47,8 @@ function insertItem(array, action) {
 
     if(index > -1) {
         // noop
-    } else {
+    } 
+    else {
         newArray.push(action)
     }
     return newArray;

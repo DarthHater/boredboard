@@ -9,14 +9,25 @@ export const threadActions = {
     loadPosts,
     loadThread,
     loadThreads,
+    exitThreadList,
+    enterThreadList,
+    enterThreadView,
+    exitThreadView,
+    exitPostsView,
     recievePost
 };
 
-function loadThreads() {
+function loadThreads(since) {
     return function (dispatch) {
-        return ThreadService.getAllThreads()
+        return ThreadService.getAllThreads(since)
             .then(threads => {
-                dispatch(loadThreadsSuccess(threads));
+                if (typeof threads.response === "undefined") {
+                    dispatch(loadThreadsSuccess(threads));
+                } else {
+                    if (threads.response.status == 404) {
+                        dispatch(noMoreThreads(true));
+                    }
+                }
             }).catch(error => {
                 throw (error);
             });
@@ -53,6 +64,36 @@ function addPost(threadId, userId, post) {
             }).catch(error => {
                 throw (error);
             });
+    }
+}
+
+function enterThreadList(noMasThreads) {
+    return function (dispatch) {
+        return dispatch(enterThreadListSuccess(noMasThreads));
+    }
+}
+
+function exitThreadView() {
+    return function (dispatch) {
+        return dispatch(exitThreadViewSuccess());
+    }
+}
+
+function exitPostsView() {
+    return function (dispatch) {
+        return dispatch(exitPostsViewSuccess());
+    }
+}
+
+function enterThreadView() {
+    return function (dispatch) {
+        return dispatch(enterThreadViewSuccess());
+    }
+}
+
+function exitThreadList() {
+    return function (dispatch) {
+        return dispatch(exitThreadListSuccess());
     }
 }
 
@@ -120,6 +161,10 @@ function loadThreadsSuccess(threads) {
     return { type: threadConstants.LOAD_THREADS_SUCCESS, threads };
 }
 
+function noMoreThreads(noMasThreads) {
+    return { type: threadConstants.NO_MORE_THREADS, noMasThreads };
+}
+
 function loadThreadSuccess(thread) {
     return { type: threadConstants.LOAD_THREAD_SUCCESS, thread };
 }
@@ -146,4 +191,24 @@ function addThreadSuccess(thread) {
 
 function recievePostSuccess(post) {
     return { type: threadConstants.RECIEVE_POST, post };
+}
+
+function enterThreadListSuccess(noMasThreads) {
+    return { type: threadConstants.ENTER_THREAD_LIST, noMasThreads };
+}
+
+function exitThreadListSuccess() {
+    return { type: threadConstants.EXIT_THREAD_LIST };
+}
+
+function enterThreadViewSuccess() {
+    return { type: threadConstants.ENTER_THREAD_VIEW };
+}
+
+function exitThreadViewSuccess() {
+    return { type: threadConstants.EXIT_THREAD_VIEW };
+}
+
+function exitPostsViewSuccess() {
+    return { type: threadConstants.EXIT_POST_VIEW };
 }
