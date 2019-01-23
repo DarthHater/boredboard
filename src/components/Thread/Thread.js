@@ -15,22 +15,22 @@ import * as auth from '../../auth/authentication';
 
 const styles = {
     fab: {
-        margin: '10px',
-        width: 'auto',
-        borderRadius: '30px',
-        paddingLeft: '0px',
-        paddingRight: '16px',
-        height: '48px',
-        position: 'fixed',
-        top: 'auto',
-        right: '20px',
-        bottom: '20px',
-        left: 'auto',
-        zIndex: '100'
+      margin: '10px',
+      width: 'auto',
+      borderRadius: '30px',
+      paddingLeft: '0px',
+      paddingRight: '16px',
+      height: '48px',
+      position: 'fixed',
+      top: 'auto',
+      right: '20px',
+      bottom: '20px',
+      left: 'auto',
+      zIndex: '100'
     },
     extendedIcon: {
-        marginRight: '8px',
-        marginLeft: '8px'
+      marginRight: '8px',
+      marginLeft: '8px'
     },
 };
 
@@ -55,14 +55,14 @@ class Thread extends Component {
     }
 
     quotePostSendToThreadReply = (body) => {
-        this.setState({ postBody: body });
+        this.setState({postBody: body});
     }
 
     render() {
         const { classes } = this.props;
         return (
             <div
-                style={{
+                style= {{
                     paddingLeft: '20px',
                     paddingRight: '20px',
                     marginTop: 64,
@@ -70,30 +70,30 @@ class Thread extends Component {
                 }}
             >
                 <header>
-                    <Fab
-                        color="secondary"
-                        aria-label="Back to it"
+                    <Fab 
+                        color="secondary" 
+                        aria-label="Back to it" 
                         className={classes.fab}
                         onClick={() => this.props.history.go(-1)}
                     >
-                        <NavigationIcon className={classes.extendedIcon} />
+                    <NavigationIcon className={classes.extendedIcon}/>
                         Back to it
                     </Fab>
                     <h1>
-                        {this.props.thread.Title}
+                        {this.props.thread.Title }
                     </h1>
-                    <h4>Created by <Link to={`/user/${this.props.thread.UserId}`}>{this.props.thread.UserName}</Link> on <Timestamp time={this.props.thread.PostedAt} format="full" /></h4>
+                    <h4>Created by <Link to={`/user/${this.props.thread.UserId}`}>{this.props.thread.UserName }</Link> on <Timestamp time={this.props.thread.PostedAt} format="full" /></h4>
                 </header>
                 <ThreadPost
-                    threadId={this.state.threadId}
+                    threadId={ this.state.threadId }
                     quotePostCallback={this.quotePostSendToThreadReply}
-                >
+                    >
                 </ThreadPost>
-                <ThreadReply
-                    userId={this.state.userId}
+                <ThreadReply 
+                    userId={this.state.userId} 
                     threadId={this.props.thread.Id}
                     value={this.state.postBody}
-                >
+                    >
                 </ThreadReply>
             </div>
         );

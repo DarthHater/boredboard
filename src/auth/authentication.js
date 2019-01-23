@@ -8,7 +8,7 @@ export function isLoggedIn() {
 }
 
 export function checkUser(userId) {
-    if (userId == getUserId()) {
+    if (userId === getUserId()) {
         return true;
     }
     return false;

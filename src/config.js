@@ -13,4 +13,6 @@ if (hostname == 'vivalavinyl-webapp.herokuapp.com') {
     wsHost = 'ws://localhost:8000/ws';
 }
 
-config.set({ API_ROOT: backendHost, WS_ROOT: wsHost });
+let editPostTime = 10;
+
+config.set({ API_ROOT: backendHost, WS_ROOT: wsHost, EDIT_POST_TIME: editPostTime });

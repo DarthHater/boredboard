@@ -19,9 +19,6 @@ const styles = {
         marginTop: "15px",
         marginBottom: "15px",
         marginRight: "15px"
-    },
-    full: {
-        width: "100%"
     }
 };
 
@@ -117,7 +114,7 @@ class ThreadPost extends Component {
                                 {editIsOpen ? (
                                     <TextField
                                         id={`post_body_edit_input_${post.Id}`}
-                                        style={styles.full}
+                                        className="w-100"
                                         defaultValue={post.Body}
                                         margin="normal"
                                         variant="outlined"

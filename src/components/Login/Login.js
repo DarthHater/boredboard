@@ -66,16 +66,16 @@ class Login extends Component {
         const { classes } = this.props;
         return (
             <Grid container spacing={24}>
-                <Grid item xs={12} sm={12} style={{textAlign: 'center'}}>
+                <Grid item xs={12} sm={12} className="text-center">
                     <h2>Welcome to VLV!</h2>
                 </Grid>
-                <Grid item xs={12} sm={12} style={{textAlign: 'center'}}>
+                <Grid item xs={12} sm={12} className="text-center">
                     <img src="http://i.imgur.com/yTLWX.jpg" />
                 </Grid>
-                <Grid item xs={12} sm={6} style={{textAlign: 'center'}}>
+                <Grid item xs={12} sm={6} className="text-center">
                     <h4>Enter your credentials to login and start shit posting</h4>
                     {this.props.user.error &&
-                        <FormHelperText error style={{textAlign: 'center'}}>{this.props.user.error}</FormHelperText>
+                        <FormHelperText error className="text-center">{this.props.user.error}</FormHelperText>
                     }
                     <ValidatorForm
                         ref="form"
