@@ -1,6 +1,20 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import store, { history } from './store/index';
+import './App.scss';
+import YoutubeTag from './components/Common/BbCode/YouTubeTag';
 import App from './App';
+import parser from 'bbcode-to-react';
+import config from './config'
 
-ReactDOM.render(<App />, document.getElementById('app'));
+window.store = store;
+
+parser.registerTag('youtube', YoutubeTag);
+
+render(
+    <Provider store={store}>
+        <App history={history} />
+    </Provider>,
+    document.getElementById('app')
+);

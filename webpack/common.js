@@ -3,11 +3,10 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: {
-        app: './src/index.js'
-    },
+    mode: 'development',
+    entry: ['babel-polyfill', './src/index.js'],
     output: {
-        filename: '[name].bundle.js',
+        filename: '[name].[contenthash].bundle.js',
         path: path.resolve('./dist')
     },
     module: {
@@ -18,7 +17,9 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['es2015', 'react']
+                        presets: ['env', 'react'],
+                        plugins: ['transform-class-properties', 'transform-object-rest-spread',
+                            'babel-plugin-transform-async-to-generator']
                     }
                 }
             },
@@ -48,5 +49,10 @@ module.exports = {
             lang: 'en-US',
             title: 'VLV'
         })
-    ]
+    ],
+    optimization: {
+        splitChunks: {
+            chunks: 'all'
+        }
+    }
 };
