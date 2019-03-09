@@ -30,6 +30,7 @@ describe("A test", () => {
     });
 
     it("Always renders a div", () => {
+        fetch.mockResponse(JSON.stringify({ test: 'test' }));
         const divs = threadList().find("div");
         expect(divs.length).toBeGreaterThan(0);
     });
