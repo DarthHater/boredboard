@@ -8,7 +8,7 @@ class YoutubeTag extends Tag {
 
         let { host } = parse(href, {});
 
-        // Parse regular and shortened youtube URLs into the  youtube.com/embed/####### style so they work in browser and mobile
+        // Parse regular and shortened youtube URLs into the youtube.com/embed/####### style so they work in browser and mobile
         if (host === "youtube.com" || host === "www.youtube.com" || host === "youtu.be") {
             if (host === "youtu.be") {
                 href = href.replace("youtu.be/", "youtube.com/embed/");
